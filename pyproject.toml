@@ -9,6 +9,7 @@ readme = "README.md"
 main = "main:main"
 
 [tool.poetry.dependencies]
+# NOTE: Python 3.8 is EOL. We keep compatibility for now; see SECURITY.md for migration plan.
 python = "^3.8"
 
 [tool.poetry.group.dev.dependencies]
@@ -16,6 +17,19 @@ isort = "^5.13.1"
 black = "^23.12.0"
 pytest = "^7.4.3"
 pytest-benchmark = "^4.0.0"
+bandit = "^1.7.6"
+pip-audit = "^2.7.3"
+pre-commit = "^3.7.0"
+
+[tool.bandit]
+targets = ["src"]
+skips = ["B101"]
+
+[tool.isort]
+profile = "black"
+
+[tool.black]
+line-length = 88
 
 [build-system]
 requires = ["poetry-core"]

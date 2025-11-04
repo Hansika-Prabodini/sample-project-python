@@ -1,0 +1,37 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  build-test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [ '3.8', '3.10', '3.11', '3.12' ]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install Poetry
+        uses: abatilo/actions-poetry@v2
+        with:
+          poetry-version: 1.7.1
+      - name: Install dependencies
+        run: |
+          poetry install --with dev
+      - name: Run linters and security checks
+        run: |
+          poetry run isort --check --diff .
+          poetry run black --check .
+          poetry run bandit -r src
+          poetry run pip-audit -r <(poetry export -f requirements.txt --without-hashes)
+      - name: Run tests
+        env:
+          PYTHONPATH: src
+        run: |
+          poetry run pytest --benchmark-skip
