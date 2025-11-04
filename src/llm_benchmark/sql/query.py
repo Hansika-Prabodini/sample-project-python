@@ -5,18 +5,23 @@ from textwrap import dedent
 class SqlQuery:
     @staticmethod
     def query_album(name: str) -> bool:
-        """Check if an album exists
+        """Check if an album exists.
+
+        This method uses a parameterized SQL query (sqlite3 placeholders) to
+        avoid SQL injection vulnerabilities by binding the album title as a
+        parameter rather than interpolating it into the SQL string.
 
         Args:
-            name (str): Name of the album
+            name (str): Name of the album.
 
         Returns:
-            bool: True if the album exists, False otherwise
+            bool: True if the album exists, False otherwise.
         """
         conn = sqlite3.connect("data/chinook.db")
         cur = conn.cursor()
 
-        cur.execute(f"SELECT * FROM Album WHERE Title = '{name}'")
+        # Use parameterized query to mitigate SQL injection; bind values via parameters.
+        cur.execute("SELECT * FROM Album WHERE Title = ?", (name,))
         return len(cur.fetchall()) > 0
 
     @staticmethod
