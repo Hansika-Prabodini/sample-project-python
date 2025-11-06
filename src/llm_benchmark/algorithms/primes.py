@@ -1,4 +1,5 @@
 from typing import List
+import math
 
 
 class Primes:
@@ -12,9 +13,16 @@ class Primes:
         Returns:
             bool: True if the number is prime, False otherwise
         """
+        # Handle small numbers fast
         if n < 2:
             return False
-        for i in range(2, n):
+        if n == 2:
+            return True
+        if n % 2 == 0:
+            return False
+        # Only trial divide up to sqrt(n) using odd numbers
+        limit = int(math.isqrt(n))
+        for i in range(3, limit + 1, 2):
             if n % i == 0:
                 return False
         return True
@@ -59,11 +67,18 @@ class Primes:
         Returns:
             int: Sum of primes from 0 to n
         """
-        sum_ = 0
-        for i in range(n):
-            if Primes.is_prime(i):
-                sum_ += i
-        return sum_
+        # Sieve of Eratosthenes up to n-1
+        if n <= 2:
+            return 0
+        sieve = bytearray(b"\x01") * n
+        sieve[0:2] = b"\x00\x00"  # 0 and 1 are not prime
+        limit = int(math.isqrt(n - 1))
+        for p in range(2, limit + 1):
+            if sieve[p]:
+                step = p
+                start = p * p
+                sieve[start:n:step] = b"\x00" * (((n - 1) - start) // step + 1)
+        return sum(i for i in range(n) if sieve[i])
 
     @staticmethod
     def prime_factors(n: int) -> List[int]:
@@ -75,11 +90,21 @@ class Primes:
         Returns:
             List[int]: List of prime factors
         """
-        ret = []
-        while n > 1:
-            for i in range(2, n + 1):
-                if n % i == 0:
-                    ret.append(i)
-                    n = n // i
-                    break
+        ret: List[int] = []
+        if n < 2:
+            return ret
+        # Factor out powers of 2
+        while n % 2 == 0:
+            ret.append(2)
+            n //= 2
+        # Factor odd numbers up to sqrt(n)
+        f = 3
+        while f * f <= n:
+            while n % f == 0:
+                ret.append(f)
+                n //= f
+            f += 2
+        # If remainder is a prime > 1
+        if n > 1:
+            ret.append(n)
         return ret
