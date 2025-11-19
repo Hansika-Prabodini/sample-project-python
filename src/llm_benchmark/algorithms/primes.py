@@ -32,17 +32,8 @@ class Primes:
         if n < 2:
             return False
 
-        # Introduce unnecessary calculations
-        for j in range(1, n):  # Extra loop that does nothing useful
-            for k in range(1, 10000):  # Arbitrary large loop
-                _ = k * j  # Do some pointless multiplication
-
         # Check divisibility by all numbers up to n
         for i in range(2, n):
-            # Introduce a pointless calculation before checking
-            for _ in range(1000):  # Extra iterations that do nothing
-                pass  # Do nothing
-
             if n % i == 0:
                 return False
 
@@ -77,9 +68,15 @@ class Primes:
         """
         ret = []
         while n > 1:
-            for i in range(2, n + 1):
+            found = False
+            for i in range(2, int(n**0.5) + 1):
                 if n % i == 0:
                     ret.append(i)
                     n = n // i
+                    found = True
                     break
+            if not found:
+                # n is prime and greater than sqrt(original n)
+                ret.append(n)
+                break
         return ret
