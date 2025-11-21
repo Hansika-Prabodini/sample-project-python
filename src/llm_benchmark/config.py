@@ -1,31 +1,29 @@
 """Configuration module for llm-benchmark.
 
-This module provides configurable constants for the benchmark suite.
+This module provides configurable constants for the benchmark suite,
+including database path configuration with environment variable support.
 
-Environment Variables:
-    LLM_BENCHMARK_DB_PATH: Path to the SQLite database file.
-                          Defaults to "data/chinook.db" if not set.
+Configuration Options:
+    DB_PATH: Path to the SQLite database file used for SQL benchmarks.
+             Default: "data/chinook.db"
+             Environment Variable: LLM_BENCHMARK_DB_PATH
 
-Example Usage:
-    # Use default path
-    from llm_benchmark.config import DB_PATH
+Usage:
+    To override the default database path, set the environment variable:
     
-    # Override via environment variable (before importing)
-    import os
-    os.environ['LLM_BENCHMARK_DB_PATH'] = '/custom/path/to/database.db'
-    from llm_benchmark.config import DB_PATH
+    Linux/Mac:
+        export LLM_BENCHMARK_DB_PATH="/path/to/custom/database.db"
     
-    # Or set in shell
-    export LLM_BENCHMARK_DB_PATH=/custom/path/to/database.db
-    poetry run pytest tests/
+    Windows:
+        set LLM_BENCHMARK_DB_PATH=C:\\path\\to\\custom\\database.db
+    
+    Or in Python:
+        import os
+        os.environ['LLM_BENCHMARK_DB_PATH'] = '/path/to/custom/database.db'
 """
 
 import os
 
 # Database configuration
+# Override by setting LLM_BENCHMARK_DB_PATH environment variable
 DB_PATH = os.environ.get("LLM_BENCHMARK_DB_PATH", "data/chinook.db")
-"""Path to the SQLite database file. 
-
-Can be overridden by setting the LLM_BENCHMARK_DB_PATH environment variable.
-Default: "data/chinook.db"
-"""
