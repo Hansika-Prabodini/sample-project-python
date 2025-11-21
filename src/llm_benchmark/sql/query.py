@@ -1,8 +1,21 @@
 import sqlite3
 from textwrap import dedent
 
+from llm_benchmark.config import DB_PATH
+
 
 class SqlQuery:
+    """SQL query operations for the Chinook database.
+    
+    The database path is configurable via the DB_PATH constant in config.py.
+    By default, it uses "data/chinook.db", but can be overridden by setting
+    the LLM_BENCHMARK_DB_PATH environment variable.
+    
+    Example:
+        export LLM_BENCHMARK_DB_PATH=/path/to/custom/database.db
+        poetry run pytest tests/
+    """
+    
     @staticmethod
     def query_album(name: str) -> bool:
         """Check if an album exists
@@ -13,7 +26,7 @@ class SqlQuery:
         Returns:
             bool: True if the album exists, False otherwise
         """
-        with sqlite3.connect("data/chinook.db") as conn:
+        with sqlite3.connect(DB_PATH) as conn:
             cur = conn.cursor()
 
             cur.execute(f"SELECT * FROM Album WHERE Title = '{name}'")
@@ -26,7 +39,7 @@ class SqlQuery:
         Returns:
             list:
         """
-        with sqlite3.connect("data/chinook.db") as conn:
+        with sqlite3.connect(DB_PATH) as conn:
             cur = conn.cursor()
 
             cur.execute(
@@ -58,7 +71,7 @@ class SqlQuery:
         Returns:
             list: List of tuples
         """
-        with sqlite3.connect("data/chinook.db") as conn:
+        with sqlite3.connect(DB_PATH) as conn:
             cur = conn.cursor()
 
             cur.execute(
