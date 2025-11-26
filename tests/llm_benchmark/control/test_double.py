@@ -1,7 +1,8 @@
-"""Test cases for double nested loop operations.
+"""Test suite for double nested for-loop control structures.
 
-This module contains unit tests and benchmark tests for the DoubleForLoop class,
-which implements various algorithms using nested loop structures.
+This module contains tests for the DoubleForLoop class, which implements
+various algorithms using nested for-loop iteration patterns. Tests cover
+2D summations, pair counting, duplicate detection, and matrix operations.
 """
 
 from typing import List
@@ -13,58 +14,58 @@ from llm_benchmark.control.double import DoubleForLoop
 
 @pytest.mark.parametrize("n, S", [(1, 0), (2, 1), (3, 5), (10, 285)])
 def test_sum_square(n: int, S: int) -> None:
-    """Test sum_square function which calculates the sum of products i*j for all pairs.
+    """Test summation over a square grid pattern.
     
-    Tests the calculation: sum(i * j for i in range(n) for j in range(i))
-    This function uses nested loops to compute the sum of all products where i > j.
+    Validates that sum_square correctly computes the sum using nested loops
+    over a square range [0,n) x [0,n), typically summing i*j for all pairs.
     
     Args:
-        n: Upper bound for the outer loop (exclusive)
-        S: Expected sum result
-        
+        n: The dimension of the square grid (both width and height).
+        S: The expected sum over all grid positions.
+    
     Test cases:
-        - n=1: No iterations (sum = 0)
-        - n=2: Only i=1, j=0 -> 1*0 = 0, but actual is 1 (1*1)
-        - n=3: Products sum to 5
-        - n=10: Products sum to 285
+        - n=1: 1x1 grid, sum is 0
+        - n=2: 2x2 grid, sum is 1
+        - n=3: 3x3 grid, sum is 5
+        - n=10: 10x10 grid, sum is 285
     """
     assert DoubleForLoop.sum_square(n) == S
 
 
 def test_benchmark_sum_square(benchmark) -> None:
-    """Benchmark the performance of sum_square with n=100.
+    """Benchmark the square grid summation operation.
     
-    Measures execution time for calculating the sum of i*j products
-    for all pairs where i ranges from 0 to 99.
+    Measures the performance of nested loop summation over a 100x100 grid.
     """
     benchmark(DoubleForLoop.sum_square, 100)
 
 
 @pytest.mark.parametrize("n, S", [(1, 0), (2, 1), (3, 4), (10, 165)])
 def test_sum_triangle(n: int, S: int) -> None:
-    """Test sum_triangle function which calculates triangular number sums.
+    """Test summation over a triangular pattern.
     
-    Tests the calculation: sum(j for i in range(n) for j in range(i+1))
-    This computes the sum of all numbers in a triangular pattern.
+    Validates that sum_triangle correctly computes the sum using nested loops
+    where the inner loop range depends on the outer loop variable, creating
+    a triangular iteration pattern.
     
     Args:
-        n: Upper bound for the outer loop (exclusive)
-        S: Expected sum result
-        
+        n: The base dimension of the triangle.
+        S: The expected sum over the triangular pattern.
+    
     Test cases:
-        - n=1: i=0, j in [0], sum = 0
-        - n=2: i=0, j in [0]; i=1, j in [0,1], sum = 0+0+1 = 1
-        - n=3: i=0, j in [0]; i=1, j in [0,1]; i=2, j in [0,1,2], sum = 0+0+1+0+1+2 = 4
-        - n=10: Sum equals 165
+        - n=1: Minimal triangle, sum is 0
+        - n=2: Small triangle, sum is 1
+        - n=3: Triangle with 3 levels, sum is 4
+        - n=10: Larger triangle, sum is 165
     """
     assert DoubleForLoop.sum_triangle(n) == S
 
 
 def test_benchmark_sum_triangle(benchmark) -> None:
-    """Benchmark the performance of sum_triangle with n=100.
+    """Benchmark the triangular pattern summation operation.
     
-    Measures execution time for calculating triangular number sums
-    with the outer loop running from 0 to 99.
+    Measures the performance of nested loop summation over a triangular
+    pattern with base 100.
     """
     benchmark(DoubleForLoop.sum_triangle, 100)
 
@@ -80,31 +81,29 @@ def test_benchmark_sum_triangle(benchmark) -> None:
     ],
 )
 def test_count_pairs(arr: List[int], count: int) -> None:
-    """Test count_pairs function which counts values that appear exactly twice.
+    """Test counting of equal value pairs at different indices.
     
-    Uses nested loops to count how many times each element appears. If an element
-    appears exactly 2 times, it contributes to the count. The final count is divided
-    by 2 since each pair is counted from both elements.
+    Validates that count_pairs correctly counts pairs (i,j) where i < j
+    and arr[i] == arr[j] using nested loops.
     
     Args:
-        arr: List of integers to check for pairs
-        count: Expected number of matching pairs
-        
+        arr: The list to search for matching pairs.
+        count: The expected number of pairs found.
+    
     Test cases:
-        - [0]: Single element appears once, not twice, no pairs
-        - [1, 2, 3]: All unique elements appear once, no pairs
-        - [1, 1, 1]: Each 1 appears 3 times (not exactly 2), no pairs counted
-        - [1, 1, 2]: The two 1's each appear exactly twice, forms 1 pair
-        - [1, 1, 2, 2]: Both 1's and both 2's appear exactly twice, forms 2 pairs
+        - [0]: Single element, no pairs possible
+        - [1,2,3]: All distinct values, no matching pairs
+        - [1,1,1]: All same value but counting unique pairs (i<j)
+        - [1,1,2]: Two 1's form one pair
+        - [1,1,2,2]: Two 1's form one pair, two 2's form one pair
     """
     assert DoubleForLoop.count_pairs(arr) == count
 
 
 def test_benchmark_count_pairs(benchmark) -> None:
-    """Benchmark the performance of count_pairs.
+    """Benchmark the pair counting operation.
     
-    Measures execution time for counting pairs in a list with
-    duplicate values [1, 1, 2, 2].
+    Measures the performance of counting pairs in a list with duplicates.
     """
     benchmark(DoubleForLoop.count_pairs, [1, 1, 2, 2])
 
@@ -120,32 +119,30 @@ def test_benchmark_count_pairs(benchmark) -> None:
     ],
 )
 def test_count_duplicates(arr0: List[int], arr1: List[int], count: int) -> None:
-    """Test count_duplicates function which counts matching elements at same indices.
+    """Test counting matching elements between two arrays.
     
-    Uses nested loops to compare elements in arr0 and arr1, but only counts
-    matches where both the index AND value are equal (i.e., i == j and arr0[i] == arr1[j]).
-    This counts elements that are identical at the same position in both lists.
+    Validates that count_duplicates correctly counts pairs (i,j) where
+    arr0[i] == arr1[j] at the same index using nested loops.
     
     Args:
-        arr0: First list of integers
-        arr1: Second list of integers
-        count: Expected number of duplicate matches
-        
+        arr0: The first list to compare.
+        arr1: The second list to compare.
+        count: The expected number of matching index pairs.
+    
     Test cases:
-        - [0] vs [0]: Position 0 matches (0==0), count = 1
-        - [1,2,3] vs [2,3,1]: No positions match (1≠2, 2≠3, 3≠1), count = 0
-        - [1,1,1] vs [1,2,3]: Only position 0 matches (1==1), count = 1
-        - [1,1,2] vs [1,2,2]: Positions 0 and 2 match (1==1, 2==2), count = 2
-        - [1,1,2,2] vs [1,1,2,2]: All 4 positions match, count = 4
+        - [0], [0]: Single matching element
+        - [1,2,3], [2,3,1]: No matches at same indices
+        - [1,1,1], [1,2,3]: Only first elements match
+        - [1,1,2], [1,2,2]: Two matching index pairs
+        - [1,1,2,2], [1,1,2,2]: Four matching index pairs
     """
     assert DoubleForLoop.count_duplicates(arr0, arr1) == count
 
 
 def test_benchmark_count_duplicates(benchmark) -> None:
-    """Benchmark the performance of count_duplicates.
+    """Benchmark the duplicate counting operation between two arrays.
     
-    Measures execution time for counting duplicates between two identical
-    lists [1, 1, 2, 2].
+    Measures the performance of counting matching elements at same indices.
     """
     benchmark(DoubleForLoop.count_duplicates, [1, 1, 2, 2], [1, 1, 2, 2])
 
@@ -159,25 +156,26 @@ def test_benchmark_count_duplicates(benchmark) -> None:
     ],
 )
 def test_sum_matrix(matrix: List[List[int]], S: int) -> None:
-    """Test sum_matrix function which calculates the sum of all elements in a 2D matrix.
+    """Test summation of all elements in a 2D matrix.
     
-    Uses nested loops to iterate through rows and columns, summing all elements.
+    Validates that sum_matrix correctly computes the sum of all elements
+    in a 2D matrix using nested loops to iterate over rows and columns.
     
     Args:
-        matrix: 2D list of integers (list of lists)
-        S: Expected sum of all matrix elements
-        
+        matrix: The 2D list (matrix) to sum.
+        S: The expected sum of all matrix elements.
+    
     Test cases:
-        - [[0]]: Single element matrix, sum = 0
-        - [[0,1],[2,3]]: 2x2 matrix, sum = 0+1+2+3 = 6
-        - [[0,1,2],[3,4,5],[6,7,8]]: 3x3 matrix, sum = 0+1+2+...+8 = 36
+        - [[0]]: 1x1 matrix with single zero element
+        - [[0,1],[2,3]]: 2x2 matrix, sum is 0+1+2+3 = 6
+        - [[0,1,2],[3,4,5],[6,7,8]]: 3x3 matrix, sum is 0+1+...+8 = 36
     """
     assert DoubleForLoop.sum_matrix(matrix) == S
 
 
 def test_benchmark_sum_matrix(benchmark) -> None:
-    """Benchmark the performance of sum_matrix.
+    """Benchmark the matrix summation operation.
     
-    Measures execution time for summing all elements in a 3x3 matrix.
+    Measures the performance of summing all elements in a 3x3 matrix.
     """
     benchmark(DoubleForLoop.sum_matrix, [[0, 1, 2], [3, 4, 5], [6, 7, 8]])
