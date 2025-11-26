@@ -66,13 +66,13 @@ class SqlQuery:
                     """\
                     SELECT 
                         i.InvoiceId, 
-                        c.FirstName || ' ' || c.LastName AS CustomerName, 
+                        i.CustomerId, 
                         i.Total
                     FROM 
                         Invoice i
-                    JOIN Customer c ON c.CustomerId = i.CustomerId
                     ORDER BY i.Total DESC
+                    LIMIT 10
                     """
                 )
             )
-            return cur.fetchall()[:10]
+            return cur.fetchall()
