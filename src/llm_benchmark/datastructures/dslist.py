@@ -12,10 +12,7 @@ class DsList:
         Returns:
             List[int]: Modified list of integers
         """
-        ret = []
-        for i in range(len(v)):
-            ret.append(v[i] + 1)
-        return ret
+        return [value + 1 for value in v]
 
     @staticmethod
     def search_list(v: List[int], n: int) -> List[int]:
@@ -29,11 +26,7 @@ class DsList:
         Returns:
             List[int]: List of indices where the value is found
         """
-        ret = []
-        for i in range(len(v)):
-            if v[i] == n:
-                ret.append(i)
-        return ret
+        return [index for index, value in enumerate(v) if value == n]
 
     @staticmethod
     def sort_list(v: List[int]) -> List[int]:
@@ -45,13 +38,7 @@ class DsList:
         Returns:
             List[int]: Sorted list of integers
         """
-        ret = v.copy()
-        for i in range(len(ret)):
-            for j in range(i + 1, len(ret)):
-                if ret[i] > ret[j]:
-                    ret[i], ret[j] = ret[j], ret[i]
-
-        return ret
+        return sorted(v)
 
     @staticmethod
     def reverse_list(v: List[int]) -> List[int]:
@@ -63,10 +50,7 @@ class DsList:
         Returns:
             List[int]: Reversed list of integers
         """
-        ret = []
-        for i in range(len(v)):
-            ret.append(v[len(v) - 1 - i])
-        return ret
+        return list(reversed(v))
 
     @staticmethod
     def rotate_list(v: List[int], n: int) -> List[int]:
@@ -79,12 +63,14 @@ class DsList:
         Returns:
             List[int]: Rotated list of integers
         """
-        ret = []
-        for i in range(n, len(v)):
-            ret.append(v[i])
-        for i in range(n):
-            ret.append(v[i])
-        return ret
+        if not v:
+            return []
+
+        n = n % len(v)
+        if n == 0:
+            return v.copy()
+
+        return v[n:] + v[:n]
 
     @staticmethod
     def merge_lists(v1: List[int], v2: List[int]) -> List[int]:
@@ -97,9 +83,4 @@ class DsList:
         Returns:
             List[int]: Merged list of integers
         """
-        ret = []
-        for i in range(len(v1)):
-            ret.append(v1[i])
-        for i in range(len(v2)):
-            ret.append(v2[i])
-        return ret
+        return v1 + v2
