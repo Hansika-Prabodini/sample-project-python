@@ -8,9 +8,13 @@ from llm_benchmark.datastructures.dslist import DsList
 from llm_benchmark.strings.strops import StrOps
 
 
+def _print_section_header(title):
+    print(title)
+    print("-" * len(title))
+
+
 def single():
-    print("SingleForLoop")
-    print("-------------")
+    _print_section_header("SingleForLoop")
 
     print(f"sum_range(10): {SingleForLoop.sum_range(10)}")
     print(f"max_list([1, 2, 3]): {SingleForLoop.max_list([1, 2, 3])}")
@@ -19,8 +23,7 @@ def single():
 
 
 def double():
-    print("DoubleForLoop")
-    print("-------------")
+    _print_section_header("DoubleForLoop")
 
     print(f"sum_square(10): {DoubleForLoop.sum_square(10)}")
     print(f"sum_triangle(10): {DoubleForLoop.sum_triangle(10)}")
@@ -40,8 +43,7 @@ def double():
 
 
 def sql():
-    print("SQL")
-    print("---")
+    _print_section_header("SQL")
 
     print(f"query_album('Presence'): {SqlQuery.query_album('Presence')}")
     print(f"query_album('Roundabout'): {SqlQuery.query_album('Roundabout')}")
@@ -55,18 +57,18 @@ def sql():
     print(SqlQuery.top_invoices())
     print()
 
+
 def primes():
-    print("Primes")
-    print("------")
+    _print_section_header("Primes")
 
     print(f"is_prime(1700): {Primes.is_prime_ineff(1700)}")
     print(f"sum_primes(210): {Primes.sum_primes(210)}")
     print(f"prime_factors(840): {Primes.prime_factors(840)}")
     print()
 
+
 def sort():
-    print("Sort")
-    print("----")
+    _print_section_header("Sort")
 
     v = [5, 3, 2, 1, 4]
     print(f"sort_list({v}): ", end="")
@@ -84,8 +86,7 @@ def sort():
 
 
 def dslist():
-    print("DsList")
-    print("----")
+    _print_section_header("DsList")
 
     test_list = [1, 2, 3, 4, 5]
     print("Original list:", test_list)
@@ -108,9 +109,9 @@ def dslist():
     merged_list = DsList.merge_lists(test_list, [6, 7, 8])
     print("Merged list with [6, 7, 8]:", merged_list)
 
+
 def strops():
-    print("Strops")
-    print("----")
+    _print_section_header("Strops")
 
     test_str = "racecar"
     print("Original string:", test_str)
