@@ -12,9 +12,7 @@ class DsList:
         Returns:
             List[int]: Modified list of integers
         """
-        ret = []
-        for i in range(len(v)):
-            ret.append(v[i] + 1)
+        ret = [x + 1 for x in v]
         return ret
 
     @staticmethod
@@ -29,10 +27,7 @@ class DsList:
         Returns:
             List[int]: List of indices where the value is found
         """
-        ret = []
-        for i in range(len(v)):
-            if v[i] == n:
-                ret.append(i)
+        ret = [i for i, x in enumerate(v) if x == n]
         return ret
 
     @staticmethod
@@ -45,12 +40,7 @@ class DsList:
         Returns:
             List[int]: Sorted list of integers
         """
-        ret = v.copy()
-        for i in range(len(ret)):
-            for j in range(i + 1, len(ret)):
-                if ret[i] > ret[j]:
-                    ret[i], ret[j] = ret[j], ret[i]
-
+        ret = sorted(v)
         return ret
 
     @staticmethod
@@ -63,9 +53,7 @@ class DsList:
         Returns:
             List[int]: Reversed list of integers
         """
-        ret = []
-        for i in range(len(v)):
-            ret.append(v[len(v) - 1 - i])
+        ret = v[::-1]
         return ret
 
     @staticmethod
@@ -80,10 +68,12 @@ class DsList:
             List[int]: Rotated list of integers
         """
         ret = []
-        for i in range(n, len(v)):
-            ret.append(v[i])
-        for i in range(n):
-            ret.append(v[i])
+        if not v:
+            return ret
+        n = n % len(v)
+        if n == 0:
+            return v.copy()
+        ret = v[n:] + v[:n]
         return ret
 
     @staticmethod
@@ -98,8 +88,6 @@ class DsList:
             List[int]: Merged list of integers
         """
         ret = []
-        for i in range(len(v1)):
-            ret.append(v1[i])
-        for i in range(len(v2)):
-            ret.append(v2[i])
+        ret.extend(v1)
+        ret.extend(v2)
         return ret
