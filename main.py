@@ -9,6 +9,9 @@ from llm_benchmark.strings.strops import StrOps
 
 
 def single():
+    """
+    Demonstrates the functionality of SingleForLoop algorithms.
+    """
     print("SingleForLoop")
     print("-------------")
 
@@ -19,27 +22,32 @@ def single():
 
 
 def double():
+    """
+    Demonstrates the functionality of DoubleForLoop algorithms.
+    """
     print("DoubleForLoop")
     print("-------------")
 
     print(f"sum_square(10): {DoubleForLoop.sum_square(10)}")
     print(f"sum_triangle(10): {DoubleForLoop.sum_triangle(10)}")
+    # Generate a random list for count_pairs
+    random_list_for_pairs = GenList.random_list(30, 10)
+    print(f"count_pairs({random_list_for_pairs}): {DoubleForLoop.count_pairs(random_list_for_pairs)}")
+    # Generate random lists for count_duplicates
+    list1_duplicates = GenList.random_list(10, 2)
+    list2_duplicates = GenList.random_list(10, 2)
     print(
-        f"count_pairs(random_list(30, 10)): {DoubleForLoop.count_pairs(GenList.random_list(30, 10))}"
+        f"count_duplicates({list1_duplicates}, {list2_duplicates}): {DoubleForLoop.count_duplicates(list1_duplicates, list2_duplicates)}"
     )
-    print(
-        "count_duplicates(10, 10)",
-        DoubleForLoop.count_duplicates(
-            GenList.random_list(10, 2), GenList.random_list(10, 2)
-        ),
-    )
-    print(
-        f"sum_matrix(random_matrix(10, 10)): {DoubleForLoop.sum_matrix(GenList.random_matrix(10, 10))}"
-    )
+    # Generate a random matrix for sum_matrix
+    random_matrix_for_sum = GenList.random_matrix(10, 10)
+    print(f"sum_matrix({random_matrix_for_sum}): {DoubleForLoop.sum_matrix(random_matrix_for_sum)}")
     print()
 
-
 def sql():
+    """
+    Demonstrates the functionality of SqlQuery operations.
+    """
     print("SQL")
     print("---")
 
@@ -48,14 +56,27 @@ def sql():
     print()
 
     print("join_albums()")
-    print(SqlQuery.join_albums()[0])
+    # Assuming join_albums returns a list, print the first element
+    join_result = SqlQuery.join_albums()
+    if join_result:
+        print(join_result[0])
+    else:
+        print("No results from join_albums()")
     print()
 
     print("top_invoices()")
-    print(SqlQuery.top_invoices())
+    # Assuming top_invoices returns a list or similar iterable
+    top_invoices_result = SqlQuery.top_invoices()
+    if top_invoices_result:
+        print(top_invoices_result)
+    else:
+        print("No results from top_invoices()")
     print()
 
 def primes():
+    """
+    Demonstrates the functionality of Primes algorithms.
+    """
     print("Primes")
     print("------")
 
@@ -65,25 +86,31 @@ def primes():
     print()
 
 def sort():
+    """
+    Demonstrates the functionality of Sort algorithms.
+    """
     print("Sort")
     print("----")
 
-    v = [5, 3, 2, 1, 4]
-    print(f"sort_list({v}): ", end="")
-    Sort.sort_list(v)
-    print(v)
+    list_for_sort = [5, 3, 2, 1, 4]
+    print(f"sort_list({list_for_sort}): ", end="")
+    Sort.sort_list(list_for_sort)
+    print(list_for_sort)
 
-    v = [5, 3, 2, 1, 4]
-    print(f"dutch_flag_partition({v}, 3): ", end="")
-    Sort.dutch_flag_partition(v, 3)
-    print(v)
+    list_for_dutch_flag = [5, 3, 2, 1, 4]
+    print(f"dutch_flag_partition({list_for_dutch_flag}, 3): ", end="")
+    Sort.dutch_flag_partition(list_for_dutch_flag, 3)
+    print(list_for_dutch_flag)
 
-    v = [5, 3, 2, 1, 4]
-    print(f"max_n({v}, 3): {Sort.max_n(v, 3)}")
+    list_for_max_n = [5, 3, 2, 1, 4]
+    print(f"max_n({list_for_max_n}, 3): {Sort.max_n(list_for_max_n, 3)}")
     print()
 
 
 def dslist():
+    """
+    Demonstrates the functionality of DsList operations.
+    """
     print("DsList")
     print("----")
 
@@ -107,8 +134,12 @@ def dslist():
 
     merged_list = DsList.merge_lists(test_list, [6, 7, 8])
     print("Merged list with [6, 7, 8]:", merged_list)
+    print()
 
 def strops():
+    """
+    Demonstrates the functionality of StrOps operations.
+    """
     print("Strops")
     print("----")
 
@@ -120,9 +151,13 @@ def strops():
 
     is_palindrome = StrOps.palindrome(test_str)
     print("Is palindrome:", is_palindrome)
+    print()
 
 
 def main():
+    """
+    Main function to run all the demonstrations.
+    """
     single()
     double()
     sql()
