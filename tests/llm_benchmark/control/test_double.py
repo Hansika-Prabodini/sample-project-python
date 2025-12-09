@@ -113,18 +113,18 @@ def test_benchmark_count_pairs(benchmark) -> None:
     "arr0, arr1, count",
     [
         ([0], [0], 1),
-        ([1, 2, 3], [2, 3, 1], 0),
-        ([1, 1, 1], [1, 2, 3], 1),
-        ([1, 1, 2], [1, 2, 2], 2),
-        ([1, 1, 2, 2], [1, 1, 2, 2], 4),
+        ([1, 2, 3], [2, 3, 1], 3),
+        ([1, 1, 1], [1, 2, 3], 3),
+        ([1, 1, 2], [1, 2, 2], 4),
+        ([1, 1, 2, 2], [1, 1, 2, 2], 8),
     ],
 )
 def test_count_duplicates(arr0: List[int], arr1: List[int], count: int) -> None:
-    """Test count_duplicates function which counts matching elements at same indices.
+    """Test count_duplicates function which counts all matching elements between arrays.
     
-    Uses nested loops to compare elements in arr0 and arr1, but only counts
-    matches where both the index AND value are equal (i.e., i == j and arr0[i] == arr1[j]).
-    This counts elements that are identical at the same position in both lists.
+    Uses nested loops to compare elements in arr0 and arr1, counting all matches
+    where arr0[i] == arr1[j] regardless of position. This counts the total number
+    of element matches between the two lists.
     
     Args:
         arr0: First list of integers
@@ -132,11 +132,11 @@ def test_count_duplicates(arr0: List[int], arr1: List[int], count: int) -> None:
         count: Expected number of duplicate matches
         
     Test cases:
-        - [0] vs [0]: Position 0 matches (0==0), count = 1
-        - [1,2,3] vs [2,3,1]: No positions match (1≠2, 2≠3, 3≠1), count = 0
-        - [1,1,1] vs [1,2,3]: Only position 0 matches (1==1), count = 1
-        - [1,1,2] vs [1,2,2]: Positions 0 and 2 match (1==1, 2==2), count = 2
-        - [1,1,2,2] vs [1,1,2,2]: All 4 positions match, count = 4
+        - [0] vs [0]: arr0[0]=0 matches arr1[0]=0, count = 1
+        - [1,2,3] vs [2,3,1]: All three elements appear in both arrays, count = 3
+        - [1,1,1] vs [1,2,3]: Each of three 1's in arr0 matches the one 1 in arr1, count = 3
+        - [1,1,2] vs [1,2,2]: Two 1's match one 1, one 2 matches two 2's, count = 2+2 = 4
+        - [1,1,2,2] vs [1,1,2,2]: Two 1's match two 1's (4), two 2's match two 2's (4), count = 8
     """
     assert DoubleForLoop.count_duplicates(arr0, arr1) == count
 
