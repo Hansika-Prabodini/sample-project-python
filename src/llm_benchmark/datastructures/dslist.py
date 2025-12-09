@@ -12,8 +12,7 @@ class DsList:
         Returns:
             List[int]: Modified list of integers
         """
-        ret = [x + 1 for x in v]
-        return ret
+        return [value + 1 for value in v]
 
     @staticmethod
     def search_list(v: List[int], n: int) -> List[int]:
@@ -27,8 +26,7 @@ class DsList:
         Returns:
             List[int]: List of indices where the value is found
         """
-        ret = [i for i, x in enumerate(v) if x == n]
-        return ret
+        return [index for index, value in enumerate(v) if value == n]
 
     @staticmethod
     def sort_list(v: List[int]) -> List[int]:
@@ -40,8 +38,7 @@ class DsList:
         Returns:
             List[int]: Sorted list of integers
         """
-        ret = sorted(v)
-        return ret
+        return sorted(v)
 
     @staticmethod
     def reverse_list(v: List[int]) -> List[int]:
@@ -53,8 +50,7 @@ class DsList:
         Returns:
             List[int]: Reversed list of integers
         """
-        ret = v[::-1]
-        return ret
+        return list(reversed(v))
 
     @staticmethod
     def rotate_list(v: List[int], n: int) -> List[int]:
@@ -67,14 +63,14 @@ class DsList:
         Returns:
             List[int]: Rotated list of integers
         """
-        ret = []
         if not v:
-            return ret
+            return []
+
         n = n % len(v)
         if n == 0:
             return v.copy()
-        ret = v[n:] + v[:n]
-        return ret
+
+        return v[n:] + v[:n]
 
     @staticmethod
     def merge_lists(v1: List[int], v2: List[int]) -> List[int]:
@@ -87,7 +83,4 @@ class DsList:
         Returns:
             List[int]: Merged list of integers
         """
-        ret = []
-        ret.extend(v1)
-        ret.extend(v2)
-        return ret
+        return v1 + v2
