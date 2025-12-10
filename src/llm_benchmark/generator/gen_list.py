@@ -1,3 +1,10 @@
+"""Generator module for creating random data structures.
+
+This module provides the GenList class with utilities for generating
+random lists and matrices. These are useful for creating test data
+and benchmarking purposes.
+"""
+
 from random import randint
 from typing import List
 
