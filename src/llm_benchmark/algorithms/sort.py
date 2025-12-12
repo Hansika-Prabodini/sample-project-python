@@ -48,6 +48,8 @@ class Sort:
         tmp = v.copy()
         ret = [-maxsize - 1] * n
         for i in range(n):
+            if not tmp:  # Check if tmp is empty
+                break
             max_val = tmp[0]
             max_idx = 0
             for j in range(1, len(tmp)):
