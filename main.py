@@ -8,13 +8,9 @@ from llm_benchmark.datastructures.dslist import DsList
 from llm_benchmark.strings.strops import StrOps
 
 
-def _print_section_header(title):
-    print(title)
-    print("-" * len(title))
-
-
 def single():
-    _print_section_header("SingleForLoop")
+    print("SingleForLoop")
+    print("-------------")
 
     print(f"sum_range(10): {SingleForLoop.sum_range(10)}")
     print(f"max_list([1, 2, 3]): {SingleForLoop.max_list([1, 2, 3])}")
@@ -23,7 +19,8 @@ def single():
 
 
 def double():
-    _print_section_header("DoubleForLoop")
+    print("DoubleForLoop")
+    print("-------------")
 
     print(f"sum_square(10): {DoubleForLoop.sum_square(10)}")
     print(f"sum_triangle(10): {DoubleForLoop.sum_triangle(10)}")
@@ -43,32 +40,34 @@ def double():
 
 
 def sql():
-    _print_section_header("SQL")
+    print("SQL")
+    print("---")
 
-    print(f"query_album('Presence'): {SqlQuery.query_album('Presence')}")
-    print(f"query_album('Roundabout'): {SqlQuery.query_album('Roundabout')}")
+    sql_query = SqlQuery()
+    print(f"query_album('Presence'): {sql_query.query_album('Presence')}")
+    print(f"query_album('Roundabout'): {sql_query.query_album('Roundabout')}")
     print()
 
     print("join_albums()")
-    print(SqlQuery.join_albums()[0])
+    print(sql_query.join_albums()[0])
     print()
 
     print("top_invoices()")
-    print(SqlQuery.top_invoices())
+    print(sql_query.top_invoices())
     print()
 
-
 def primes():
-    _print_section_header("Primes")
+    print("Primes")
+    print("------")
 
     print(f"is_prime(1700): {Primes.is_prime_ineff(1700)}")
     print(f"sum_primes(210): {Primes.sum_primes(210)}")
     print(f"prime_factors(840): {Primes.prime_factors(840)}")
     print()
 
-
 def sort():
-    _print_section_header("Sort")
+    print("Sort")
+    print("----")
 
     v = [5, 3, 2, 1, 4]
     print(f"sort_list({v}): ", end="")
@@ -86,7 +85,8 @@ def sort():
 
 
 def dslist():
-    _print_section_header("DsList")
+    print("DsList")
+    print("----")
 
     test_list = [1, 2, 3, 4, 5]
     print("Original list:", test_list)
@@ -109,9 +109,9 @@ def dslist():
     merged_list = DsList.merge_lists(test_list, [6, 7, 8])
     print("Merged list with [6, 7, 8]:", merged_list)
 
-
 def strops():
-    _print_section_header("Strops")
+    print("Strops")
+    print("----")
 
     test_str = "racecar"
     print("Original string:", test_str)

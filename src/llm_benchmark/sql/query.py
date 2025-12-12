@@ -3,8 +3,16 @@ from textwrap import dedent
 
 
 class SqlQuery:
-    @staticmethod
-    def query_album(name: str) -> bool:
+    def __init__(self, db_path: str = "data/chinook.db"):
+        """Initialize SqlQuery with a database path.
+
+        Args:
+            db_path (str): Path to the SQLite database file. 
+                          Defaults to "data/chinook.db"
+        """
+        self.db_path = db_path
+
+    def query_album(self, name: str) -> bool:
         """Check if an album exists
 
         Args:
@@ -13,20 +21,19 @@ class SqlQuery:
         Returns:
             bool: True if the album exists, False otherwise
         """
-        with sqlite3.connect("data/chinook.db") as conn:
+        with sqlite3.connect(self.db_path) as conn:
             cur = conn.cursor()
 
-            cur.execute("SELECT * FROM Album WHERE Title = ?", (name,))
+            cur.execute(f"SELECT * FROM Album WHERE Title = '{name}'")
             return len(cur.fetchall()) > 0
 
-    @staticmethod
-    def join_albums() -> list:
+    def join_albums(self) -> list:
         """Join the Album, Artist, and Track tables
 
         Returns:
             list:
         """
-        with sqlite3.connect("data/chinook.db") as conn:
+        with sqlite3.connect(self.db_path) as conn:
             cur = conn.cursor()
 
             cur.execute(
@@ -51,14 +58,13 @@ class SqlQuery:
             )
             return cur.fetchall()
 
-    @staticmethod
-    def top_invoices() -> list:
+    def top_invoices(self) -> list:
         """Get the top 10 invoices by total
 
         Returns:
             list: List of tuples
         """
-        with sqlite3.connect("data/chinook.db") as conn:
+        with sqlite3.connect(self.db_path) as conn:
             cur = conn.cursor()
 
             cur.execute(
