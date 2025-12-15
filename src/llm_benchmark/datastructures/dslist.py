@@ -67,6 +67,9 @@ class DsList:
         Returns:
             List[int]: Rotated list of integers
         """
+        if len(v) == 0:
+            return []
+        n = n % len(v)
         ret = []
         if not v:
             return ret
