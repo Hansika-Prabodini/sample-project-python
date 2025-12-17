@@ -109,7 +109,7 @@ print(DsList.merge_lists(list1, list2))  # [1, 2, 3, 4, 5, 6]
 
 ## Performance Notes
 
-- All methods use explicit loops rather than built-in Python functions
+- Most methods use explicit loops, though some leverage built-in Python functions for efficiency
 - Operations return new lists, preserving the original (except where noted)
 - Designed to benchmark LLM code generation for list operations
-- The sort implementation uses a simple bubble sort algorithm (O(n²))
+- The `sort_list` method uses Python's built-in `sorted()` function for optimal performance

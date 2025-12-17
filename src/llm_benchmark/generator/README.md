@@ -15,7 +15,7 @@ Random data generation for lists and matrices.
   - Args:
     - `n` - Number of integers to generate (list length)
     - `m` - Maximum value of integers (exclusive upper bound)
-  - Returns: List of `n` random integers in the range [0, m]
+  - Returns: List of `n` random integers in the range [0, m-1]
   - Example:
     ```python
     from llm_benchmark.generator.gen_list import GenList
@@ -34,7 +34,7 @@ Random data generation for lists and matrices.
   - Args:
     - `n` - Number of rows in the matrix
     - `m` - Number of columns in the matrix (also used as max value)
-  - Returns: Matrix of `n x m` random integers, each in range [0, m]
+  - Returns: Matrix of `n x m` random integers, each in range [0, m-1]
   - Example:
     ```python
     # Generate a 3x3 matrix with values from 0 to 3
@@ -116,7 +116,7 @@ for matrix in [small_matrix, medium_matrix, large_matrix]:
 ## Performance Notes
 
 - Uses Python's `random.randint()` for number generation
-- Random values are inclusive of both bounds [0, m]
+- Random values are in the range [0, m-1] (inclusive of 0, exclusive of m)
 - Matrix generation creates independent random values for each cell
 - Useful for creating reproducible test cases when seeded
 - Designed to support benchmarking and testing of other modules

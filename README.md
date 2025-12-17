@@ -108,7 +108,11 @@ This will measure and compare the execution time of different implementations an
 
 ## Module Documentation
 
-### Algorithms
+For detailed documentation of each module, see the README.md files in their respective directories.
+
+### Quick Reference
+
+#### Algorithms
 - `Primes.is_prime(n)` - Check if a number is prime
 - `Primes.is_prime_ineff(n)` - Inefficient prime check (for benchmarking)
 - `Primes.sum_primes(n)` - Sum all primes from 0 to n
@@ -151,16 +155,26 @@ llm-benchmarking-py/
 ├── src/
 │   └── llm_benchmark/
 │       ├── algorithms/      # Algorithm implementations
+│       │   └── README.md   # Detailed module documentation
 │       ├── control/         # Control flow operations
+│       │   └── README.md   # Detailed module documentation
 │       ├── datastructures/  # Data structure operations
+│       │   └── README.md   # Detailed module documentation
 │       ├── generator/       # Test data generators
+│       │   └── README.md   # Detailed module documentation
 │       ├── sql/            # SQL query operations
+│       │   └── README.md   # Detailed module documentation
 │       └── strings/        # String manipulation
+│           └── README.md   # Detailed module documentation
 ├── tests/                  # Unit tests and benchmarks
+│   └── README.md          # Testing guide
 ├── data/                   # Database files (Chinook SQLite)
+│   └── README.md          # Database documentation
 ├── main.py                # Demo script
 └── pyproject.toml         # Project configuration
 ```
+
+**Note**: Each module directory contains its own detailed README.md with comprehensive documentation, usage examples, and API references.
 
 ## Development
 
