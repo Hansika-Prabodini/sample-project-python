@@ -47,7 +47,9 @@ class Sort:
         """
         tmp = v.copy()
         ret = [-maxsize - 1] * n
-        for i in range(n):
+        # Only iterate up to the number of elements available
+        iterations = min(n, len(tmp))
+        for i in range(iterations):
             max_val = tmp[0]
             max_idx = 0
             for j in range(1, len(tmp)):
