@@ -1,115 +1,138 @@
 # Data Structures Module
 
-This module contains data structure operations focusing on list manipulations for benchmarking purposes.
+This module contains functions for benchmarking common data structure operations, with a focus on list manipulation.
 
-## Modules
+## Files
 
-### DsList (`dslist.py`)
+### dslist.py
 
-List manipulation operations implemented using explicit loops.
+List data structure operations implemented using explicit loops for benchmarking purposes.
+
+**Class: `DsList`**
 
 #### Methods
 
-- **`modify_list(v: List[int]) -> List[int]`**
-  - Create a new list with 1 added to each element
-  - Args: `v` - List of integers
-  - Returns: New list with each element incremented by 1
-  - Example:
-    ```python
-    from llm_benchmark.datastructures.dslist import DsList
-    DsList.modify_list([1, 2, 3])  # Returns: [2, 3, 4]
-    ```
+##### `modify_list(v: List[int]) -> List[int]`
+Creates a modified copy of a list by adding 1 to each element.
 
-- **`search_list(v: List[int], n: int) -> List[int]`**
-  - Find all indices where a value appears in a list
-  - Args:
-    - `v` - List of integers to search
-    - `n` - Value to search for
-  - Returns: List of indices where the value is found
-  - Example:
-    ```python
-    DsList.search_list([1, 2, 3, 2, 4], 2)  # Returns: [1, 3]
-    ```
-
-- **`sort_list(v: List[int]) -> List[int]`**
-  - Sort a list and return a new sorted copy
-  - Original list is not modified
-  - Args: `v` - List of integers to sort
-  - Returns: New sorted list
-  - Example:
-    ```python
-    original = [5, 3, 1, 4, 2]
-    sorted_list = DsList.sort_list(original)
-    print(sorted_list)  # [1, 2, 3, 4, 5]
-    print(original)     # [5, 3, 1, 4, 2] (unchanged)
-    ```
-
-- **`reverse_list(v: List[int]) -> List[int]`**
-  - Reverse a list and return a new reversed copy
-  - Original list is not modified
-  - Args: `v` - List of integers to reverse
-  - Returns: New reversed list
-  - Example:
-    ```python
-    DsList.reverse_list([1, 2, 3, 4, 5])  # Returns: [5, 4, 3, 2, 1]
-    ```
-
-- **`rotate_list(v: List[int], n: int) -> List[int]`**
-  - Rotate a list by n positions to the left
-  - Args:
-    - `v` - List of integers to rotate
-    - `n` - Number of positions to rotate
-  - Returns: New rotated list
-  - Example:
-    ```python
-    DsList.rotate_list([1, 2, 3, 4, 5], 2)  # Returns: [3, 4, 5, 1, 2]
-    ```
-
-- **`merge_lists(v1: List[int], v2: List[int]) -> List[int]`**
-  - Merge two lists by concatenating them
-  - Args:
-    - `v1` - First list of integers
-    - `v2` - Second list of integers
-  - Returns: New list containing all elements from v1 followed by v2
-  - Example:
-    ```python
-    DsList.merge_lists([1, 2, 3], [4, 5, 6])  # Returns: [1, 2, 3, 4, 5, 6]
-    ```
-
-## Usage Example
+- **Args**: `v` - List of integers
+- **Returns**: New list with each element incremented by 1
+- **Complexity**: O(n)
 
 ```python
 from llm_benchmark.datastructures.dslist import DsList
 
-# List modifications
-original = [1, 2, 3, 4, 5]
-print(DsList.modify_list(original))  # [2, 3, 4, 5, 6]
-
-# Search operations
-numbers = [10, 20, 30, 20, 40]
-print(DsList.search_list(numbers, 20))  # [1, 3]
-
-# Sorting (returns copy)
-unsorted = [5, 2, 8, 1, 9]
-sorted_list = DsList.sort_list(unsorted)
-print(sorted_list)  # [1, 2, 5, 8, 9]
-print(unsorted)     # [5, 2, 8, 1, 9] (unchanged)
-
-# Reversing
-print(DsList.reverse_list([1, 2, 3]))  # [3, 2, 1]
-
-# Rotating
-print(DsList.rotate_list([1, 2, 3, 4, 5], 2))  # [3, 4, 5, 1, 2]
-
-# Merging
-list1 = [1, 2, 3]
-list2 = [4, 5, 6]
-print(DsList.merge_lists(list1, list2))  # [1, 2, 3, 4, 5, 6]
+DsList.modify_list([1, 2, 3])  # Returns [2, 3, 4]
 ```
 
-## Performance Notes
+##### `search_list(v: List[int], n: int) -> List[int]`
+Searches for all occurrences of a value in a list.
 
-- All methods use explicit loops rather than built-in Python functions
-- Operations return new lists, preserving the original (except where noted)
-- Designed to benchmark LLM code generation for list operations
-- The sort implementation uses a simple bubble sort algorithm (O(n²))
+- **Args**:
+  - `v` - List of integers
+  - `n` - Value to search for
+- **Returns**: List of indices where the value is found
+- **Complexity**: O(n)
+
+```python
+DsList.search_list([1, 5, 3, 5, 2], 5)  # Returns [1, 3]
+DsList.search_list([1, 2, 3], 4)        # Returns []
+```
+
+##### `sort_list(v: List[int]) -> List[int]`
+Sorts a list of integers and returns a sorted copy.
+
+- **Args**: `v` - List of integers
+- **Returns**: New sorted list (original unchanged)
+- **Complexity**: O(n²) - uses bubble sort
+- **Note**: Returns a copy, does not modify original
+
+```python
+original = [5, 3, 2, 1, 4]
+sorted_list = DsList.sort_list(original)
+print(sorted_list)  # [1, 2, 3, 4, 5]
+print(original)     # [5, 3, 2, 1, 4] (unchanged)
+```
+
+##### `reverse_list(v: List[int]) -> List[int]`
+Reverses a list and returns a reversed copy.
+
+- **Args**: `v` - List of integers
+- **Returns**: New list with elements in reverse order
+- **Complexity**: O(n)
+
+```python
+DsList.reverse_list([1, 2, 3, 4, 5])  # Returns [5, 4, 3, 2, 1]
+```
+
+##### `rotate_list(v: List[int], n: int) -> List[int]`
+Rotates a list by n positions to the left.
+
+- **Args**:
+  - `v` - List of integers
+  - `n` - Number of positions to rotate
+- **Returns**: New list rotated n positions left
+- **Complexity**: O(n)
+
+```python
+DsList.rotate_list([1, 2, 3, 4, 5], 2)  # Returns [3, 4, 5, 1, 2]
+DsList.rotate_list([1, 2, 3, 4, 5], 0)  # Returns [1, 2, 3, 4, 5]
+```
+
+##### `merge_lists(v1: List[int], v2: List[int]) -> List[int]`
+Merges two lists by concatenation.
+
+- **Args**:
+  - `v1` - First list of integers
+  - `v2` - Second list of integers
+- **Returns**: New list containing all elements from v1 followed by v2
+- **Complexity**: O(n + m)
+
+```python
+DsList.merge_lists([1, 2, 3], [4, 5, 6])  # Returns [1, 2, 3, 4, 5, 6]
+```
+
+## Implementation Notes
+
+All functions in this module are implemented using explicit for-loops rather than built-in Python functions or list comprehensions. This design choice serves several benchmarking purposes:
+
+1. **Performance comparison**: Compare manual implementations vs. built-in operations
+2. **Code generation testing**: Test LLM understanding of basic data structure manipulation
+3. **Optimization opportunities**: Identify when built-ins would be more efficient
+4. **Educational value**: Clear algorithmic implementations for learning
+
+## Benchmarking
+
+These operations test:
+- List traversal patterns
+- In-place vs. copy operations
+- Memory allocation patterns
+- Time/space complexity trade-offs
+
+Run benchmarks with:
+```bash
+poetry run pytest --benchmark-only tests/llm_benchmark/datastructures/
+```
+
+## Example Usage
+
+```python
+from llm_benchmark.datastructures.dslist import DsList
+
+# Work with a list
+data = [1, 2, 3, 4, 5]
+
+# Transform
+doubled = DsList.modify_list(data)  # [2, 3, 4, 5, 6]
+
+# Search
+indices = DsList.search_list(data, 3)  # [2]
+
+# Reorganize
+sorted_data = DsList.sort_list(data)
+reversed_data = DsList.reverse_list(data)
+rotated_data = DsList.rotate_list(data, 2)
+
+# Combine
+merged = DsList.merge_lists(data, [6, 7, 8])
+```
