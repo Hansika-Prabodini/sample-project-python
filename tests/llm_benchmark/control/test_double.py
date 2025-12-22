@@ -113,18 +113,17 @@ def test_benchmark_count_pairs(benchmark) -> None:
     "arr0, arr1, count",
     [
         ([0], [0], 1),
-        ([1, 2, 3], [2, 3, 1], 0),
-        ([1, 1, 1], [1, 2, 3], 1),
-        ([1, 1, 2], [1, 2, 2], 2),
-        ([1, 1, 2, 2], [1, 1, 2, 2], 4),
+        ([1, 2, 3], [2, 3, 1], 3),
+        ([1, 1, 1], [1, 2, 3], 3),
+        ([1, 1, 2], [1, 2, 2], 4),
+        ([1, 1, 2, 2], [1, 1, 2, 2], 8),
     ],
 )
 def test_count_duplicates(arr0: List[int], arr1: List[int], count: int) -> None:
-    """Test count_duplicates function which counts matching elements at same indices.
+    """Test count_duplicates function which counts all matching elements between arrays.
     
-    Uses nested loops to compare elements in arr0 and arr1, but only counts
-    matches where both the index AND value are equal (i.e., i == j and arr0[i] == arr1[j]).
-    This counts elements that are identical at the same position in both lists.
+    Uses nested loops to compare each element in arr0 with each element in arr1,
+    counting how many times elements from arr0 match elements in arr1.
     
     Args:
         arr0: First list of integers
@@ -132,11 +131,11 @@ def test_count_duplicates(arr0: List[int], arr1: List[int], count: int) -> None:
         count: Expected number of duplicate matches
         
     Test cases:
-        - [0] vs [0]: Position 0 matches (0==0), count = 1
-        - [1,2,3] vs [2,3,1]: No positions match (1≠2, 2≠3, 3≠1), count = 0
-        - [1,1,1] vs [1,2,3]: Only position 0 matches (1==1), count = 1
-        - [1,1,2] vs [1,2,2]: Positions 0 and 2 match (1==1, 2==2), count = 2
-        - [1,1,2,2] vs [1,1,2,2]: All 4 positions match, count = 4
+        - [0] vs [0]: 0 appears once in each, count = 1
+        - [1,2,3] vs [2,3,1]: Each value appears once in each array, count = 3
+        - [1,1,1] vs [1,2,3]: 1 appears 3 times in arr0 and once in arr1, count = 3
+        - [1,1,2] vs [1,2,2]: 1 appears 2x1=2 times, 2 appears 1x2=2 times, count = 4
+        - [1,1,2,2] vs [1,1,2,2]: 1 appears 2x2=4 times, 2 appears 2x2=4 times, count = 8
     """
     assert DoubleForLoop.count_duplicates(arr0, arr1) == count
 
@@ -148,6 +147,28 @@ def test_benchmark_count_duplicates(benchmark) -> None:
     lists [1, 1, 2, 2].
     """
     benchmark(DoubleForLoop.count_duplicates, [1, 1, 2, 2], [1, 1, 2, 2])
+
+
+def test_count_duplicates_bug_fix() -> None:
+    """Test count_duplicates to verify it counts ALL matching elements between arrays.
+    
+    This test verifies the bug fix where the function should count all occurrences
+    of matching elements between two arrays, not just those at the same index position.
+    
+    Test case: [1, 2] vs [2, 1]
+    - With the bug (i == j condition): Would only check index 0 vs 0 and 1 vs 1
+      - arr0[0]=1 vs arr1[0]=2: no match
+      - arr0[1]=2 vs arr1[1]=1: no match
+      - Result: 0 (WRONG)
+    
+    - After fix (without i == j): Checks all pairs
+      - arr0[0]=1 vs arr1[0]=2: no match
+      - arr0[0]=1 vs arr1[1]=1: match (count=1)
+      - arr0[1]=2 vs arr1[0]=2: match (count=2)
+      - arr0[1]=2 vs arr1[1]=1: no match
+      - Result: 2 (CORRECT)
+    """
+    assert DoubleForLoop.count_duplicates([1, 2], [2, 1]) == 2
 
 
 @pytest.mark.parametrize(
