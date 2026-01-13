@@ -14,9 +14,18 @@ class Primes:
         """
         if n < 2:
             return False
-        for i in range(2, n):
+        if n == 2:
+            return True
+        if n % 2 == 0:
+            return False
+        
+        # Only check odd divisors up to sqrt(n)
+        i = 3
+        while i * i <= n:
             if n % i == 0:
                 return False
+            i += 2
+        
         return True
 
     @staticmethod
@@ -79,10 +88,22 @@ class Primes:
             List[int]: List of prime factors
         """
         ret = []
-        while n > 1:
-            for i in range(2, n + 1):
-                if n % i == 0:
-                    ret.append(i)
-                    n = n // i
-                    break
+        
+        # Handle factor 2 separately to optimize for odd factors later
+        while n % 2 == 0:
+            ret.append(2)
+            n = n // 2
+        
+        # Check odd factors starting from 3
+        i = 3
+        while i * i <= n:
+            while n % i == 0:
+                ret.append(i)
+                n = n // i
+            i += 2
+        
+        # If n is still greater than 1, it's a prime factor
+        if n > 1:
+            ret.append(n)
+        
         return ret
