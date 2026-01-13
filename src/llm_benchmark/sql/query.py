@@ -1,6 +1,8 @@
 import sqlite3
 from textwrap import dedent
 
+from llm_benchmark.config import DB_PATH
+
 
 class SqlQuery:
     @staticmethod
@@ -13,7 +15,7 @@ class SqlQuery:
         Returns:
             bool: True if the album exists, False otherwise
         """
-        with sqlite3.connect("data/chinook.db") as conn:
+        with sqlite3.connect(DB_PATH) as conn:
             cur = conn.cursor()
 
             cur.execute("SELECT * FROM Album WHERE Title = ?", (name,))
@@ -26,7 +28,7 @@ class SqlQuery:
         Returns:
             list:
         """
-        with sqlite3.connect("data/chinook.db") as conn:
+        with sqlite3.connect(DB_PATH) as conn:
             cur = conn.cursor()
 
             cur.execute(
@@ -58,7 +60,7 @@ class SqlQuery:
         Returns:
             list: List of tuples
         """
-        with sqlite3.connect("data/chinook.db") as conn:
+        with sqlite3.connect(DB_PATH) as conn:
             cur = conn.cursor()
 
             cur.execute(
