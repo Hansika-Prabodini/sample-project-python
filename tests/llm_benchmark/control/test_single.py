@@ -8,7 +8,7 @@ from typing import List
 
 import pytest
 
-from llm_benchmark.control.single import SingleForLoop
+from llm_benchmark.control.single import sum_range, max_list, sum_modulus
 
 
 @pytest.mark.parametrize("n, S", [(0, 0), (1, 0), (2, 1), (3, 3), (4, 6), (10, 45)])
@@ -30,7 +30,7 @@ def test_sum_range(n: int, S: int) -> None:
         - n=4: 0+1+2+3 = 6
         - n=10: 0+1+...+9 = 45
     """
-    assert SingleForLoop.sum_range(n) == S
+    assert sum_range(n) == S
 
 
 def test_benchmark_sum_range(benchmark) -> None:
@@ -39,7 +39,7 @@ def test_benchmark_sum_range(benchmark) -> None:
     Measures execution time for summing all integers from 0 to 99
     using a single loop iteration.
     """
-    benchmark(SingleForLoop.sum_range, 100)
+    benchmark(sum_range, 100)
 
 
 @pytest.mark.parametrize(
@@ -61,7 +61,7 @@ def test_max_list(v: List[int], M: int) -> None:
         - [1,1,1,1,0]: Repeated values with smaller element, max = 1
         - [-1,-1,-1,-1,0]: All negative except one zero, max = 0
     """
-    assert SingleForLoop.max_list(v) == M
+    assert max_list(v) == M
 
 
 def test_benchmark_max_list(benchmark) -> None:
@@ -70,7 +70,7 @@ def test_benchmark_max_list(benchmark) -> None:
     Measures execution time for finding the maximum value in a
     5-element list [1, 2, 3, 4, 5].
     """
-    benchmark(SingleForLoop.max_list, [1, 2, 3, 4, 5])
+    benchmark(max_list, [1, 2, 3, 4, 5])
 
 
 @pytest.mark.parametrize(
@@ -107,7 +107,7 @@ def test_sum_modulus(n: int, m: int, S: int) -> None:
         - n=10, m=3: 0+3+6+9 = 18
         - n=10, m=4: 0+4+8 = 12
     """
-    assert SingleForLoop.sum_modulus(n, m) == S
+    assert sum_modulus(n, m) == S
 
 
 def test_benchmark_sum_modulus(benchmark) -> None:
@@ -116,4 +116,4 @@ def test_benchmark_sum_modulus(benchmark) -> None:
     Measures execution time for summing all numbers divisible by 2
     in the range [0, 100).
     """
-    benchmark(SingleForLoop.sum_modulus, 100, 2)
+    benchmark(sum_modulus, 100, 2)
