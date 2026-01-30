@@ -1,0 +1,58 @@
+# CODEOWNERS file for llm-benchmarking-py
+#
+# This file defines individuals or teams responsible for code in this repository.
+# Code owners are automatically requested for review when someone opens a pull request
+# that modifies code that they own.
+#
+# More info: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+
+# Global Owners - Default owners for everything in the repo
+# These users will be requested for review when someone opens a pull request
+* @matthew-truscott
+
+# Core Source Code
+/src/ @matthew-truscott
+
+# Algorithm Implementations
+/src/llm_benchmark/algorithms/ @matthew-truscott
+
+# Control Flow Modules
+/src/llm_benchmark/control/ @matthew-truscott
+
+# Data Structures
+/src/llm_benchmark/datastructures/ @matthew-truscott
+
+# String Operations
+/src/llm_benchmark/strings/ @matthew-truscott
+
+# SQL Queries
+/src/llm_benchmark/sql/ @matthew-truscott
+
+# Generators
+/src/llm_benchmark/generator/ @matthew-truscott
+
+# Tests and Benchmarks
+/tests/ @matthew-truscott
+
+# Configuration Files
+pyproject.toml @matthew-truscott
+poetry.lock @matthew-truscott
+
+# Documentation
+*.md @matthew-truscott
+/README.md @matthew-truscott
+/CONTRIBUTING.md @matthew-truscott
+
+# CI/CD and Scripts
+/artemis_scripts/ @matthew-truscott
+/.github/ @matthew-truscott
+
+# Data Files
+/data/ @matthew-truscott
+
+# Root Configuration
+/main.py @matthew-truscott
+
+# Repository Management Files
+/CODEOWNERS @matthew-truscott
+/TEAM_ACCESS.md @matthew-truscott
