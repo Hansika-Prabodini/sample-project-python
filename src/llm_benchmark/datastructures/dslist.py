@@ -12,10 +12,8 @@ class DsList:
         Returns:
             List[int]: Modified list of integers
         """
-        ret = []
-        for i in range(len(v)):
-            ret.append(v[i] + 1)
-        return ret
+        # Use list comprehension for a more concise and Pythonic way to modify the list
+        return [x + 1 for x in v]
 
     @staticmethod
     def search_list(v: List[int], n: int) -> List[int]:
