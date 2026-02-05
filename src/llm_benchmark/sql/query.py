@@ -12,7 +12,28 @@ class SqlQuery:
 
         Returns:
             bool: True if the album exists, False otherwise
+            
+        Raises:
+            ValueError: If name is None, empty, not a string, or exceeds maximum length
         """
+        # Input validation for security and data integrity
+        if name is None:
+            raise ValueError("Album name cannot be None")
+        
+        if not isinstance(name, str):
+            raise ValueError("Album name must be a string")
+        
+        # Strip leading/trailing whitespace
+        name = name.strip()
+        
+        if not name:
+            raise ValueError("Album name cannot be empty")
+        
+        # Reasonable maximum length for album titles (most album titles are under 200 chars)
+        MAX_ALBUM_TITLE_LENGTH = 255
+        if len(name) > MAX_ALBUM_TITLE_LENGTH:
+            raise ValueError(f"Album name cannot exceed {MAX_ALBUM_TITLE_LENGTH} characters")
+        
         with sqlite3.connect("data/chinook.db") as conn:
             cur = conn.cursor()
 
