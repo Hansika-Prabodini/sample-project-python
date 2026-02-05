@@ -77,6 +77,13 @@ class DsList:
         Returns:
             List[int]: Rotated list of integers
         """
+        # Handle empty list edge case
+        if len(v) == 0:
+            return []
+        
+        # Normalize rotation count to handle negative values and n > len(v)
+        n = n % len(v)
+        
         ret = []
         for i in range(n, len(v)):
             ret.append(v[i])

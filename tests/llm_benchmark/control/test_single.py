@@ -110,6 +110,16 @@ def test_sum_modulus(n: int, m: int, S: int) -> None:
     assert SingleForLoop.sum_modulus(n, m) == S
 
 
+def test_sum_modulus_zero_modulus() -> None:
+    """Test sum_modulus raises ValueError when modulus m is zero.
+    
+    The function should validate input and raise a ValueError with
+    a descriptive error message when m=0 to prevent division by zero.
+    """
+    with pytest.raises(ValueError, match="Modulus m cannot be zero"):
+        SingleForLoop.sum_modulus(10, 0)
+
+
 def test_benchmark_sum_modulus(benchmark) -> None:
     """Benchmark the performance of sum_modulus.
     
