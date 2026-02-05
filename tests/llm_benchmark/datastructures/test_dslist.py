@@ -152,3 +152,60 @@ def test_benchmark_reverse_list(benchmark) -> None:
     Measures execution time for reversing a 5-element list [1, 2, 3, 4, 5].
     """
     benchmark(DsList.reverse_list, [1, 2, 3, 4, 5])
+
+
+@pytest.mark.parametrize(
+    "v, n, ref",
+    [
+        # Basic rotation
+        ([1, 2, 3, 4, 5], 2, [3, 4, 5, 1, 2]),
+        # Empty list edge case
+        ([], 3, []),
+        # Zero rotation
+        ([1, 2, 3], 0, [1, 2, 3]),
+        # Rotation equals list length (full rotation)
+        ([1, 2, 3], 3, [1, 2, 3]),
+        # Rotation greater than list length (wraps around)
+        ([1, 2, 3], 5, [3, 1, 2]),
+        # Negative rotation (rotate right)
+        ([1, 2, 3, 4], -1, [4, 1, 2, 3]),
+        # Another negative rotation
+        ([1, 2, 3, 4, 5], -2, [4, 5, 1, 2, 3]),
+        # Single element list
+        ([1], 0, [1]),
+        ([1], 1, [1]),
+        ([1], 5, [1]),
+    ],
+)
+def test_rotate_list(v: List[int], n: int, ref: List[int]) -> None:
+    """Test rotate_list function which rotates a list by n positions.
+    
+    Rotates the list to the left by n positions. Handles edge cases including
+    empty lists, zero rotation, rotations larger than list length, and negative
+    rotations (which rotate right).
+    
+    Args:
+        v: Input list to rotate
+        n: Number of positions to rotate (positive=left, negative=right)
+        ref: Expected rotated output list
+        
+    Test cases:
+        - [1,2,3,4,5] rotated by 2: Becomes [3,4,5,1,2]
+        - Empty list []: Always returns []
+        - [1,2,3] rotated by 0: No change, returns [1,2,3]
+        - [1,2,3] rotated by 3: Full rotation, returns [1,2,3]
+        - [1,2,3] rotated by 5: Wraps around (5%3=2), returns [3,1,2]
+        - [1,2,3,4] rotated by -1: Rotate right by 1, returns [4,1,2,3]
+        - [1,2,3,4,5] rotated by -2: Rotate right by 2, returns [4,5,1,2,3]
+        - Single element: Always returns the same element
+    """
+    assert DsList.rotate_list(v, n) == ref
+
+
+def test_benchmark_rotate_list(benchmark) -> None:
+    """Benchmark the performance of rotate_list.
+    
+    Measures execution time for rotating a 5-element list [1, 2, 3, 4, 5]
+    by 2 positions.
+    """
+    benchmark(DsList.rotate_list, [1, 2, 3, 4, 5], 2)
