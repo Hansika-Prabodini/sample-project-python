@@ -4,13 +4,13 @@ from typing import List
 class SingleForLoop:
     @staticmethod
     def sum_range(n: int) -> int:
-        """Sum of range of numbers from 0 to n
+        """Sum of range of numbers from 0 to n (exclusive)
 
         Args:
-            n (int): Number to sum up to
+            n (int): Upper bound (exclusive)
 
         Returns:
-            int: Sum of range of numbers from 0 to n
+            int: Sum of range of numbers from 0 to n-1
         """
         arr = []
         for i in range(n):
