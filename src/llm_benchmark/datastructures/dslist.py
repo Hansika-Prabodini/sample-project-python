@@ -76,7 +76,25 @@ class DsList:
 
         Returns:
             List[int]: Rotated list of integers
+            
+        Raises:
+            ValueError: If v is None or n is negative
         """
+        # Validate v is not None
+        if v is None:
+            raise ValueError("List cannot be None")
+        
+        # Validate n is non-negative
+        if n < 0:
+            raise ValueError("Rotation count must be non-negative")
+        
+        # Handle empty list case
+        if len(v) == 0:
+            return []
+        
+        # Handle n > len(v) using modulo operation
+        n = n % len(v)
+        
         ret = []
         for i in range(n, len(v)):
             ret.append(v[i])
