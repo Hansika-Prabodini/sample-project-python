@@ -45,6 +45,22 @@ class Sort:
         Returns:
             List[int]: List of maximum n values
         """
+        # Validate v parameter is not None
+        if v is None:
+            raise ValueError("List cannot be None")
+        
+        # Validate list is not empty
+        if len(v) == 0:
+            raise ValueError("List cannot be empty")
+        
+        # Validate n is positive
+        if n <= 0:
+            raise ValueError("n must be positive")
+        
+        # Validate n does not exceed list length
+        if n > len(v):
+            raise ValueError("n cannot exceed list length")
+        
         tmp = v.copy()
         ret = [-maxsize - 1] * n
         for i in range(n):
