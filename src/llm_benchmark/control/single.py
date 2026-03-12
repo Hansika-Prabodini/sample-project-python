@@ -27,6 +27,10 @@ class SingleForLoop:
         Returns:
             int: Maximum value in the vector
         """
+        if v is None:
+            raise ValueError("List cannot be None")
+        if len(v) == 0:
+            raise ValueError("List cannot be empty")
         max_val = v[0]
         for i in range(1, len(v)):
             if v[i] > max_val:
