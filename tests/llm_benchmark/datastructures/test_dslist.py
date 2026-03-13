@@ -1,8 +1,8 @@
-"""Test cases for list data structure operations.
+"""Test suite for list data structure operations.
 
-This module contains unit tests and benchmark tests for the DsList class,
-which implements various list manipulation operations including modification,
-searching, sorting, and reversal.
+This module contains tests for the DsList class, which implements various
+list manipulation algorithms including element modification, searching,
+sorting, and reversal operations.
 """
 
 from typing import List
@@ -23,30 +23,29 @@ from llm_benchmark.datastructures.dslist import DsList
     ],
 )
 def test_modify_list(v: List[int], ref: List[int]) -> None:
-    """Test modify_list function which increments each element by 1.
+    """Test in-place modification of list elements.
     
-    Creates a new list where each element is the original element plus 1.
-    The function does not modify the original list.
+    Validates that modify_list correctly increments each element in the
+    list by 1, returning a new list with modified values.
     
     Args:
-        v: Input list of integers
-        ref: Expected output list with each element incremented
-        
+        v: The input list to modify.
+        ref: The expected result list with each element incremented by 1.
+    
     Test cases:
         - [0]: Single element, becomes [1]
-        - [1,2,3]: Becomes [2,3,4]
+        - [1,2,3]: Sequential values, becomes [2,3,4]
         - [1,1,1]: Repeated values, becomes [2,2,2]
-        - [1,1,2]: Mixed values, becomes [2,2,3]
-        - [1,2,3,4,5]: Sequential values, becomes [2,3,4,5,6]
+        - [1,1,2]: Mixed repeated values, becomes [2,2,3]
+        - [1,2,3,4,5]: Longer sequential list, becomes [2,3,4,5,6]
     """
     assert DsList.modify_list(v) == ref
 
 
 def test_benchmark_modify_list(benchmark) -> None:
-    """Benchmark the performance of modify_list.
+    """Benchmark the list modification operation.
     
-    Measures execution time for incrementing each element in a
-    5-element list [1, 2, 3, 4, 5].
+    Measures the performance of incrementing all elements in a 5-element list.
     """
     benchmark(DsList.modify_list, [1, 2, 3, 4, 5])
 
@@ -60,29 +59,28 @@ def test_benchmark_modify_list(benchmark) -> None:
     ],
 )
 def test_search_list(v: List[int], search_value: int, ref: List[int]) -> None:
-    """Test search_list function which finds all indices of a value in a list.
+    """Test searching for value indices in a list.
     
-    Searches through the list and returns a list of all indices where the
-    search value appears. Returns an empty list if the value is not found.
+    Validates that search_list correctly finds and returns all indices
+    where the search value appears in the list.
     
     Args:
-        v: List to search through
-        search_value: Value to search for
-        ref: Expected list of indices where the value appears
-        
+        v: The list to search in.
+        search_value: The value to search for.
+        ref: The expected list of indices where the value is found.
+    
     Test cases:
         - Search for 1 in [1,2,3,4,5]: Found at index 0
         - Search for 2 in [1,2,3,4,5]: Found at index 1
-        - Search for 9 in [1,2,3,4,5]: Not found, returns []
+        - Search for 9 in [1,2,3,4,5]: Not found, empty list
     """
     assert DsList.search_list(v, search_value) == ref
 
 
 def test_benchmark_search_list(benchmark) -> None:
-    """Benchmark the performance of search_list.
+    """Benchmark the list search operation.
     
-    Measures execution time for searching for value 2 in the list
-    [1, 2, 3, 4, 5].
+    Measures the performance of searching for value 2 in a 5-element list.
     """
     benchmark(DsList.search_list, [1, 2, 3, 4, 5], 2)
 
@@ -95,15 +93,15 @@ def test_benchmark_search_list(benchmark) -> None:
     ],
 )
 def test_sort_list(v: List[int], ref: List[int]) -> None:
-    """Test sort_list function which sorts a list in ascending order.
+    """Test sorting a list in ascending order.
     
-    Returns a new sorted list, leaving the original list unchanged.
-    Handles duplicate values correctly.
+    Validates that sort_list correctly sorts a list of integers in
+    ascending order, handling both unique and duplicate values.
     
     Args:
-        v: Input list to sort
-        ref: Expected sorted output list
-        
+        v: The unsorted input list.
+        ref: The expected sorted list in ascending order.
+    
     Test cases:
         - [5,4,3,2,1]: Reverse order, becomes [1,2,3,4,5]
         - [3,3,2,2,4,3,0,5]: Mixed with duplicates, becomes [0,2,2,3,3,3,4,5]
@@ -112,10 +110,9 @@ def test_sort_list(v: List[int], ref: List[int]) -> None:
 
 
 def test_benchmark_sort_list(benchmark) -> None:
-    """Benchmark the performance of sort_list.
+    """Benchmark the list sorting operation.
     
-    Measures execution time for sorting a 5-element list in reverse order
-    [5, 4, 3, 2, 1].
+    Measures the performance of sorting a reverse-ordered 5-element list.
     """
     benchmark(DsList.sort_list, [5, 4, 3, 2, 1])
 
@@ -129,26 +126,26 @@ def test_benchmark_sort_list(benchmark) -> None:
     ],
 )
 def test_reverse_list(v: List[int], ref: List[int]) -> None:
-    """Test reverse_list function which reverses the order of elements.
+    """Test reversing the order of list elements.
     
-    Returns a new list with elements in reverse order, leaving the original
-    list unchanged.
+    Validates that reverse_list correctly reverses the order of elements
+    in a list, creating a new list with elements in reverse order.
     
     Args:
-        v: Input list to reverse
-        ref: Expected reversed output list
-        
+        v: The input list to reverse.
+        ref: The expected list with elements in reverse order.
+    
     Test cases:
-        - [1,2,3,4,5]: Becomes [5,4,3,2,1]
-        - [1,3,2,0]: Becomes [0,2,3,1]
+        - [1,2,3,4,5]: Sequential forward, becomes [5,4,3,2,1]
+        - [1,3,2,0]: Mixed order, becomes [0,2,3,1]
         - [1,1,1,1,1]: All same values, remains [1,1,1,1,1]
     """
     assert DsList.reverse_list(v) == ref
 
 
 def test_benchmark_reverse_list(benchmark) -> None:
-    """Benchmark the performance of reverse_list.
+    """Benchmark the list reversal operation.
     
-    Measures execution time for reversing a 5-element list [1, 2, 3, 4, 5].
+    Measures the performance of reversing a 5-element list.
     """
     benchmark(DsList.reverse_list, [1, 2, 3, 4, 5])

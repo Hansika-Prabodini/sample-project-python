@@ -1,8 +1,8 @@
-"""Test cases for SQL query operations.
+"""Test suite for SQL query operations.
 
-This module contains unit tests and benchmark tests for the SqlQuery class,
-which performs various database operations on the Chinook SQLite database.
-The tests verify album queries, table joins, and invoice analysis.
+This module contains tests for the SqlQuery class, which performs various
+database query operations including album searches, table joins, and
+invoice analysis.
 """
 
 import pytest
@@ -18,41 +18,41 @@ from llm_benchmark.sql.query import SqlQuery
     ],
 )
 def test_query_album(name: str, expected: bool) -> None:
-    """Test query_album function which checks if an album exists in the database.
+    """Test album existence query in the database.
     
-    Queries the Album table in the Chinook database to verify if an album
-    with the given name exists.
+    Validates that the query_album method correctly identifies whether
+    an album with the given name exists in the database.
     
     Args:
-        name: Album name to search for
-        expected: Expected boolean result (True if exists, False otherwise)
-        
+        name: The album name to search for.
+        expected: Whether the album should exist (True) or not (False).
+    
     Test cases:
-        - "Presence": Known album in the database, should return True
-        - "Roundabout": Not an album name in the database, should return False
+        - "Presence": Album that exists in the database
+        - "Roundabout": Album that does not exist in the database
     """
     assert SqlQuery.query_album(name) == expected
 
 
 def test_benchmark_query_album(benchmark) -> None:
-    """Benchmark the performance of query_album.
+    """Benchmark the album query operation.
     
-    Measures execution time for querying an album that exists in the
-    database ("Presence").
+    Measures the performance of querying for an album by name.
+    Uses "Presence" as the test album.
     """
     benchmark(SqlQuery.query_album, "Presence")
 
 
 def test_join_albums() -> None:
-    """Test join_albums function which performs a multi-table join operation.
+    """Test joining albums with tracks and artists.
     
-    Joins the Album, Artist, and Track tables to retrieve complete album
-    information including track name, album title, and artist name.
-    Tests that the first result matches the expected tuple.
+    Validates that the join_albums method correctly performs a multi-table
+    join operation and returns the expected data structure with album name,
+    track name, and artist name.
     
-    Expected first result:
-        - Track: "For Those About To Rock (We Salute You)"
-        - Album: "For Those About To Rock We Salute You"
+    Verifies that the first result is:
+        - Album: "For Those About To Rock (We Salute You)"
+        - Track: "For Those About To Rock We Salute You"
         - Artist: "AC/DC"
     """
     assert SqlQuery.join_albums()[0] == (
@@ -63,25 +63,23 @@ def test_join_albums() -> None:
 
 
 def test_benchmark_join_albums(benchmark) -> None:
-    """Benchmark the performance of join_albums.
+    """Benchmark the album join operation.
     
-    Measures execution time for performing a three-table join operation
-    across Album, Artist, and Track tables in the Chinook database.
+    Measures the performance of joining albums, tracks, and artists tables.
     """
     benchmark(SqlQuery.join_albums)
 
 
 def test_top_invoices() -> None:
-    """Test top_invoices function which retrieves the top 10 invoices by total amount.
+    """Test retrieval of top invoices by total amount.
     
-    Queries the Invoice table, orders by total amount in descending order,
-    and returns the top 10 results. Tests verify:
-    - First invoice total is 25.86
-    - Third invoice total is 21.86
-    - Exactly 10 invoices are returned
+    Validates that the top_invoices method returns the correct set of
+    invoices ordered by total amount in descending order.
     
-    Each invoice tuple contains: (InvoiceId, CustomerId, Total)
-    where CustomerId is the integer ID of the customer who made the invoice.
+    Verifies:
+        - First invoice total is 25.86
+        - Third invoice total is 21.86
+        - Exactly 10 invoices are returned
     """
     top = SqlQuery.top_invoices()
     assert top[0][2] == 25.86
@@ -90,9 +88,8 @@ def test_top_invoices() -> None:
 
 
 def test_benchmark_top_invoices(benchmark) -> None:
-    """Benchmark the performance of top_invoices.
+    """Benchmark the top invoices query.
     
-    Measures execution time for querying and sorting the top 10 invoices
-    by total amount from the Invoice table.
+    Measures the performance of retrieving and sorting top invoices.
     """
     benchmark(SqlQuery.top_invoices)
