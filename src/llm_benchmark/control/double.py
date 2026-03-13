@@ -1,3 +1,4 @@
+from collections import Counter
 from typing import List
 
 
@@ -37,26 +38,39 @@ class DoubleForLoop:
 
     @staticmethod
     def count_pairs(arr: List[int]) -> int:
-        """Count pairs of numbers in an array
-
-        A pair is defined as exactly two numbers in the array that are equal.
+        """Count distinct values that appear exactly twice.
 
         Args:
             arr (List[int]): Array of integers
 
         Returns:
-            int: Number of pairs in the array
-        """
-        count = 0
-        for i in range(len(arr)):
-            ndup = 0
-            for j in range(len(arr)):
-                if arr[i] == arr[j]:
-                    ndup += 1
-            if ndup == 2:
-                count += 1
+            int: Number of distinct values that appear exactly twice
 
-        return count // 2
+        Raises:
+            TypeError: If input is None or not iterable
+            ValueError: If input contains non-hashable types
+
+        Examples:
+            [1, 1, 2] -> 1 (value 1 appears exactly twice)
+            [1, 1, 2, 2] -> 2 (values 1 and 2 each appear exactly twice)
+            [] -> 0 (empty list)
+        """
+        # Input validation
+        if arr is None:
+            raise TypeError("Input cannot be None")
+        
+        # Handle empty list
+        if len(arr) == 0:
+            return 0
+        
+        # Build frequency map
+        try:
+            freq = Counter(arr)
+        except TypeError:
+            raise TypeError("Input contains non-hashable types")
+        
+        # Count values with frequency exactly equal to 2
+        return sum(1 for value, count in freq.items() if count == 2)
 
     @staticmethod
     def count_duplicates(arr0: List[int], arr1: List[int]) -> int:
