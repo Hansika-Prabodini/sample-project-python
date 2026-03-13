@@ -3,7 +3,6 @@ name = "llm_benchmark"
 version = "0.1.0"
 description = "A collection of python functions to benchmark llm projects"
 authors = ["Matthew <matthew.truscott@turintech.ai>"]
-readme = "README.md"
 
 [tool.poetry.scripts]
 main = "main:main"
