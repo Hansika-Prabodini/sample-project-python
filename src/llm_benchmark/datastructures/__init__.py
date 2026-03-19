@@ -1,4 +1,5 @@
 from llm_benchmark.datastructures.dslist import (
+    DsList,
     merge_lists,
     modify_list,
     reverse_list,
@@ -8,6 +9,7 @@ from llm_benchmark.datastructures.dslist import (
 )
 
 __all__ = [
+    "DsList",
     "merge_lists",
     "modify_list",
     "reverse_list",
