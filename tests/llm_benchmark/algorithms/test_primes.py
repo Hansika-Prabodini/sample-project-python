@@ -135,3 +135,35 @@ def test_benchmark_prime_factors(benchmark) -> None:
     which equals 2 × 2 × 3 × 7.
     """
     benchmark(Primes.prime_factors, 84)
+
+
+@pytest.mark.parametrize(
+    "n, is_prime",
+    [
+        (0, False),
+        (1, False),
+        (2, True),
+        (3, True),
+        (4, False),
+        (9, False),
+        (10, False),
+        (17, True),
+        (26, False),
+        (121, False),
+        (127, True),
+    ],
+)
+def test_is_prime_ineff(n: int, is_prime: bool) -> None:
+    """Test is_prime_ineff function which determines if a number is prime.
+    
+    This tests the optimized version to ensure it produces the same results
+    as the standard is_prime function.
+    """
+    assert Primes.is_prime_ineff(n) == is_prime
+
+
+def test_is_prime_vs_is_prime_ineff() -> None:
+    """Test that is_prime and is_prime_ineff produce identical results."""
+    for n in range(0, 200):
+        assert Primes.is_prime(n) == Primes.is_prime_ineff(n), \
+            f"is_prime({n}) != is_prime_ineff({n})"

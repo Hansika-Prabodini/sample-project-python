@@ -26,7 +26,13 @@ class SingleForLoop:
 
         Returns:
             int: Maximum value in the vector
+            
+        Raises:
+            ValueError: If the list is empty
         """
+        if not v:
+            raise ValueError("max_list() arg is an empty sequence")
+        
         max_val = v[0]
         for i in range(1, len(v)):
             if v[i] > max_val:

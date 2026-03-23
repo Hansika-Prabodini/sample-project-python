@@ -117,3 +117,17 @@ def test_benchmark_sum_modulus(benchmark) -> None:
     in the range [0, 100).
     """
     benchmark(SingleForLoop.sum_modulus, 100, 2)
+
+
+def test_max_list_empty() -> None:
+    """Test max_list function with an empty list.
+    
+    The function should handle empty lists gracefully, either by:
+    - Returning a sentinel value (like None or -infinity)
+    - Raising a meaningful ValueError
+    
+    Currently, it raises an IndexError which is not ideal.
+    """
+    # This test will fail before the patch
+    with pytest.raises(ValueError, match="empty"):
+        SingleForLoop.max_list([])

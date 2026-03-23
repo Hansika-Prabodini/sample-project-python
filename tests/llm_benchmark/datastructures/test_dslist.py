@@ -152,3 +152,35 @@ def test_benchmark_reverse_list(benchmark) -> None:
     Measures execution time for reversing a 5-element list [1, 2, 3, 4, 5].
     """
     benchmark(DsList.reverse_list, [1, 2, 3, 4, 5])
+
+
+@pytest.mark.parametrize(
+    "v, n, ref",
+    [
+        ([1, 2, 3, 4, 5], 0, [1, 2, 3, 4, 5]),
+        ([1, 2, 3, 4, 5], 1, [2, 3, 4, 5, 1]),
+        ([1, 2, 3, 4, 5], 2, [3, 4, 5, 1, 2]),
+        ([1, 2, 3, 4, 5], 5, [1, 2, 3, 4, 5]),  # full rotation
+        ([1, 2, 3, 4, 5], -1, [5, 1, 2, 3, 4]),  # negative rotation
+        ([1, 2, 3], 10, [2, 3, 1]),  # n > len(v)
+        ([], 5, []),  # empty list
+    ],
+)
+def test_rotate_list(v: List[int], n: int, ref: List[int]) -> None:
+    """Test rotate_list function which rotates a list by n positions."""
+    assert DsList.rotate_list(v, n) == ref
+
+
+@pytest.mark.parametrize(
+    "v1, v2, ref",
+    [
+        ([], [], []),
+        ([1], [], [1]),
+        ([], [1], [1]),
+        ([1, 2, 3], [4, 5, 6], [1, 2, 3, 4, 5, 6]),
+        ([1], [2], [1, 2]),
+    ],
+)
+def test_merge_lists(v1: List[int], v2: List[int], ref: List[int]) -> None:
+    """Test merge_lists function which merges two lists."""
+    assert DsList.merge_lists(v1, v2) == ref
