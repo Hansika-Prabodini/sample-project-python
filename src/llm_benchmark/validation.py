@@ -11,6 +11,7 @@ Usage:
     >>> validate_string("hello", allow_empty=False)
 """
 
+import math
 from typing import Any, List, Optional, Union
 
 
@@ -140,6 +141,15 @@ def validate_numeric(
         raise TypeError(
             f"Expected int or float, got {actual_type}. "
             f"Please provide a numeric value."
+        )
+
+    # Reject NaN: all comparisons with NaN return False in Python, so NaN
+    # would silently bypass every range check below and be returned as if it
+    # were a valid number.  NaN is never a meaningful numeric value.
+    if isinstance(value, float) and math.isnan(value):
+        raise ValueError(
+            "Value is NaN, which is not a valid numeric value. "
+            "Please provide a real numeric value."
         )
 
     # Check range constraints
