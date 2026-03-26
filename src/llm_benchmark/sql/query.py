@@ -1,5 +1,8 @@
 import sqlite3
+from pathlib import Path
 from textwrap import dedent
+
+DB_PATH = Path(__file__).parent.parent.parent.parent / "data" / "chinook.db"
 
 
 class SqlQuery:
@@ -13,7 +16,7 @@ class SqlQuery:
         Returns:
             bool: True if the album exists, False otherwise
         """
-        conn = sqlite3.connect("data/chinook.db")
+        conn = sqlite3.connect(DB_PATH)
         cur = conn.cursor()
 
         cur.execute(f"SELECT * FROM Album WHERE Title = '{name}'")
@@ -26,7 +29,7 @@ class SqlQuery:
         Returns:
             list:
         """
-        conn = sqlite3.connect("data/chinook.db")
+        conn = sqlite3.connect(DB_PATH)
         cur = conn.cursor()
 
         cur.execute(
@@ -58,7 +61,7 @@ class SqlQuery:
         Returns:
             list: List of tuples
         """
-        conn = sqlite3.connect("data/chinook.db")
+        conn = sqlite3.connect(DB_PATH)
         cur = conn.cursor()
 
         cur.execute(
