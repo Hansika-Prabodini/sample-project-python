@@ -1,4 +1,7 @@
+import logging
 from typing import List
+
+logger = logging.getLogger(__name__)
 
 
 class Primes:
@@ -12,6 +15,7 @@ class Primes:
         Returns:
             bool: True if the number is prime, False otherwise
         """
+        logger.debug("is_prime called with n=%d", n)
         if n < 2:
             return False
         if n == 2:
@@ -23,10 +27,14 @@ class Primes:
         i = 3
         while i * i <= n:
             if n % i == 0:
-                return False
+                result = False
+                logger.debug("is_prime(%d) = %s", n, result)
+                return result
             i += 2
         
-        return True
+        result = True
+        logger.debug("is_prime(%d) = %s", n, result)
+        return result
 
     @staticmethod
     def is_prime_ineff(n: int) -> bool:
@@ -71,10 +79,12 @@ class Primes:
         Returns:
             int: Sum of primes from 0 to n
         """
+        logger.debug("sum_primes called with n=%d", n)
         sum_ = 0
         for i in range(n):
             if Primes.is_prime(i):
                 sum_ += i
+        logger.debug("sum_primes(%d) = %d", n, sum_)
         return sum_
 
     @staticmethod
@@ -87,6 +97,9 @@ class Primes:
         Returns:
             List[int]: List of prime factors
         """
+        logger.debug("prime_factors called with n=%d", n)
+        if n <= 0:
+            raise ValueError("n must be a positive integer")
         ret = []
         
         # Handle factor 2 separately to optimize for odd factors later
@@ -106,4 +119,5 @@ class Primes:
         if n > 1:
             ret.append(n)
         
+        logger.debug("prime_factors result: %s", ret)
         return ret

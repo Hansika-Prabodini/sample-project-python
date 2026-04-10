@@ -1,3 +1,8 @@
+import logging
+
+logger = logging.getLogger(__name__)
+
+
 class StrOps:
     @staticmethod
     def str_reverse(s: str) -> str:
