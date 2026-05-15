@@ -1,3 +1,5 @@
+import logging
+
 from llm_benchmark.algorithms.primes import Primes
 from llm_benchmark.algorithms.sort import Sort
 from llm_benchmark.control.double import DoubleForLoop
@@ -6,6 +8,8 @@ from llm_benchmark.generator.gen_list import GenList
 from llm_benchmark.sql.query import SqlQuery
 from llm_benchmark.datastructures.dslist import DsList
 from llm_benchmark.strings.strops import StrOps
+
+logger = logging.getLogger(__name__)
 
 
 def _print_section_header(title):
@@ -124,13 +128,23 @@ def strops():
 
 
 def main():
-    single()
-    double()
-    sql()
-    primes()
-    sort()
-    dslist()
-    strops()
+    logging.basicConfig(level=logging.INFO, format="%(asctime)s %(name)s %(levelname)s %(message)s")
+
+    sections = [
+        ("single", single),
+        ("double", double),
+        ("sql", sql),
+        ("primes", primes),
+        ("sort", sort),
+        ("dslist", dslist),
+        ("strops", strops),
+    ]
+
+    for section_name, section_func in sections:
+        try:
+            section_func()
+        except Exception as e:
+            logger.error("Section %s failed: %s", section_name, e, exc_info=True)
 
 
 if __name__ == "__main__":

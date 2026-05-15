@@ -1,4 +1,7 @@
+import logging
 from typing import List
+
+logger = logging.getLogger(__name__)
 
 
 class SingleForLoop:
@@ -27,6 +30,8 @@ class SingleForLoop:
         Returns:
             int: Maximum value in the vector
         """
+        if not v:
+            raise ValueError("max_list requires a non-empty list")
         max_val = v[0]
         for i in range(1, len(v)):
             if v[i] > max_val:

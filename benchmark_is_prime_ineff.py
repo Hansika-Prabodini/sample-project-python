@@ -16,6 +16,7 @@ The new implementation has O(sqrt(n)) complexity by:
 - Skipping even numbers after 2
 """
 
+import sys
 import time
 from typing import Callable, List, Tuple
 
@@ -131,6 +132,7 @@ def verify_correctness(test_cases: List[Tuple[int, bool]]) -> None:
         print("✅ All correctness tests passed!")
     else:
         print("❌ Some tests failed!")
+        sys.exit(1)
     print()
 
 

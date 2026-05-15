@@ -1,5 +1,8 @@
+import logging
 from random import randint
 from typing import List
+
+logger = logging.getLogger(__name__)
 
 
 class GenList:
@@ -14,6 +17,10 @@ class GenList:
         Returns:
             List[int]: List of random integers
         """
+        if m <= 0:
+            raise ValueError(f"m must be > 0, got {m}")
+        if n < 0:
+            raise ValueError(f"n must be >= 0, got {n}")
         return [randint(0, m - 1) for _ in range(n)]
 
     @staticmethod
