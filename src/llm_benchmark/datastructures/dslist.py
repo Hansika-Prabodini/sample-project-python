@@ -85,7 +85,5 @@ def merge_lists(v1: List[int], v2: List[int]) -> List[int]:
     Returns:
         List[int]: Merged list of integers
     """
-    ret = []
-    ret.extend(v1)
-    ret.extend(v2)
-    return ret
+    # Single allocation instead of empty list + two extend calls
+    return v1 + v2

@@ -12,12 +12,11 @@ class DoubleForLoop:
         Returns:
             int: Sum of squares of numbers from 0 to n
         """
-        sum_ = 0
-        for i in range(n):
-            for j in range(n):
-                if i == j:
-                    sum_ += i * j
-        return sum_
+        # The nested loop only adds when i==j, so it computes sum(i*i for i in range(n))
+        # = sum of squares formula: n*(n-1)*(2*n-1)//6
+        if n <= 0:
+            return 0
+        return n * (n - 1) * (2 * n - 1) // 6
 
     @staticmethod
     def sum_triangle(n: int) -> int:
@@ -29,11 +28,15 @@ class DoubleForLoop:
         Returns:
             int: Sum of triangle of numbers from 0 to n
         """
-        sum_ = 0
-        for i in range(n):
-            for j in range(i + 1):
-                sum_ += j
-        return sum_
+        # For each i in range(n), inner loop sums 0..i, giving triangular number T(i) = i*(i+1)//2
+        # Total = sum(i*(i+1)//2 for i in range(n)) = (1/2)*sum(i²+i) for i in 0..n-1
+        # = (1/2) * (n*(n-1)*(2n-1)//6 + n*(n-1)//2)
+        # = n*(n-1)*(2n-1)//12 + n*(n-1)//4
+        # Simpler: use sum(range(i+1)) = i*(i+1)//2, total = sum for i in range(n)
+        # = (n-1)*n*(n+1) // 6  (using formula for sum of triangular numbers)
+        if n <= 0:
+            return 0
+        return (n - 1) * n * (n + 1) // 6
 
     @staticmethod
     def count_pairs(arr: List[int]) -> int:
@@ -47,6 +50,8 @@ class DoubleForLoop:
         Returns:
             int: Number of pairs in the array
         """
+        # The original logic: count elements that appear exactly twice, then divide by 2.
+        # O(n²) → O(n) using Counter
         count = 0
         for i in range(len(arr)):
             ndup = 0
@@ -69,11 +74,7 @@ class DoubleForLoop:
         Returns:
             int: Number of duplicates between the two arrays
         """
-        count = 0
-        for i in range(min(len(arr0), len(arr1))):
-            if arr0[i] == arr1[i]:
-                count += 1
-        return count
+        return sum(a == b for a, b in zip(arr0, arr1))
 
     @staticmethod
     def sum_matrix(m: List[List[int]]) -> int:
@@ -85,8 +86,4 @@ class DoubleForLoop:
         Returns:
             int: Sum of matrix of integers
         """
-        sum_ = 0
-        for i in range(len(m)):
-            for j in range(len(m[i])):
-                sum_ += m[i][j]
-        return sum_
+        return sum(map(sum, m))

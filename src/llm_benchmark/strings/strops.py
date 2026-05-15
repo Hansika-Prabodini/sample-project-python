@@ -9,10 +9,8 @@ class StrOps:
         Returns:
             str: Reversed string
         """
-        ret = ""
-        for i in range(len(s)):
-            ret += s[len(s) - 1 - i]
-        return ret
+        # O(n) slice instead of O(n²) string concatenation loop
+        return s[::-1]
 
     @staticmethod
     def palindrome(s: str) -> bool:
@@ -24,7 +22,5 @@ class StrOps:
         Returns:
             bool: True if the string is a palindrome, False otherwise
         """
-        for i in range(len(s)):
-            if s[i] != s[len(s) - 1 - i]:
-                return False
-        return True
+        # Only need to check first half; short-circuit via reversed comparison
+        return s == s[::-1]
