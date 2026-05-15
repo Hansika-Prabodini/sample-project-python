@@ -1,3 +1,4 @@
+import heapq
 from sys import maxsize
 from typing import List
 
@@ -10,10 +11,8 @@ class Sort:
         Args:
             v (List[int]): List of integers
         """
-        for i in range(len(v)):
-            for j in range(i + 1, len(v)):
-                if v[i] > v[j]:
-                    v[i], v[j] = v[j], v[i]
+        # Built-in Timsort replaces O(n²) selection sort; runs at C speed
+        v.sort()
 
     @staticmethod
     def dutch_flag_partition(v: List[int], pivot_value: int) -> None:
@@ -45,17 +44,10 @@ class Sort:
         Returns:
             List[int]: List of maximum n values
         """
-        tmp = v.copy()
-        ret = [-maxsize - 1] * n
-        # Only iterate up to the number of elements available
-        iterations = min(n, len(tmp))
-        for i in range(iterations):
-            max_val = tmp[0]
-            max_idx = 0
-            for j in range(1, len(tmp)):
-                if tmp[j] > max_val:
-                    max_val = tmp[j]
-                    max_idx = j
-            ret[i] = max_val
-            tmp.pop(max_idx)
-        return ret
+        # heapq.nlargest is O(k + n log k) vs O(n*k) repeated linear scan
+        k = min(n, len(v))
+        largest = heapq.nlargest(k, v)
+        # Pad with sentinel if n > len(v)
+        if k < n:
+            largest.extend([-maxsize - 1] * (n - k))
+        return largest

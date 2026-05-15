@@ -12,10 +12,8 @@ class SingleForLoop:
         Returns:
             int: Sum of range of numbers from 0 to n
         """
-        arr = []
-        for i in range(n):
-            arr.append(i)
-        return sum(arr)
+        # Avoid building intermediate list; sum(range(n)) runs at C speed
+        return sum(range(n))
 
     @staticmethod
     def max_list(v: List[int]) -> int:
@@ -27,11 +25,8 @@ class SingleForLoop:
         Returns:
             int: Maximum value in the vector
         """
-        max_val = v[0]
-        for i in range(1, len(v)):
-            if v[i] > max_val:
-                max_val = v[i]
-        return max_val
+        # Built-in max() runs at C speed, no need for a manual loop
+        return max(v)
 
     @staticmethod
     def sum_modulus(n: int, m: int) -> int:
@@ -44,8 +39,5 @@ class SingleForLoop:
         Returns:
             int: Sum of modulus of numbers from 0 to n
         """
-        arr = []
-        for i in range(n):
-            if i % m == 0:
-                arr.append(i)
-        return sum(arr)
+        # Generator avoids building an intermediate list; only multiples of m are summed
+        return sum(i for i in range(0, n, m))

@@ -9,10 +9,8 @@ class StrOps:
         Returns:
             str: Reversed string
         """
-        ret = ""
-        for i in range(len(s)):
-            ret += s[len(s) - 1 - i]
-        return ret
+        # Slice reversal avoids O(n²) string concatenation and runs at C speed
+        return s[::-1]
 
     @staticmethod
     def palindrome(s: str) -> bool:
