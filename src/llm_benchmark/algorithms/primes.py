@@ -88,7 +88,10 @@ class Primes:
             List[int]: List of prime factors
         """
         ret = []
-        
+
+        if n < 2:
+            return ret
+
         # Handle factor 2 separately to optimize for odd factors later
         while n % 2 == 0:
             ret.append(2)
