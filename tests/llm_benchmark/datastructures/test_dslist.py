@@ -51,6 +51,15 @@ def test_benchmark_modify_list(benchmark) -> None:
     benchmark(DsList.modify_list, [1, 2, 3, 4, 5])
 
 
+def test_dslist_exports_static_methods() -> None:
+    assert DsList.modify_list([1, 2, 3]) == [2, 3, 4]
+    assert DsList.search_list([1, 2, 1], 1) == [0, 2]
+    assert DsList.sort_list([3, 1, 2]) == [1, 2, 3]
+    assert DsList.reverse_list([1, 2, 3]) == [3, 2, 1]
+    assert DsList.rotate_list([1, 2, 3], 1) == [2, 3, 1]
+    assert DsList.merge_lists([1, 2], [3, 4]) == [1, 2, 3, 4]
+
+
 @pytest.mark.parametrize(
     "v, search_value, ref",
     [
