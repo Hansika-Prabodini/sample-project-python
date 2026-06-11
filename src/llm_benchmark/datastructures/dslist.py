@@ -89,3 +89,12 @@ def merge_lists(v1: List[int], v2: List[int]) -> List[int]:
     ret.extend(v1)
     ret.extend(v2)
     return ret
+
+
+class DsList:
+    modify_list = staticmethod(modify_list)
+    search_list = staticmethod(search_list)
+    sort_list = staticmethod(sort_list)
+    reverse_list = staticmethod(reverse_list)
+    rotate_list = staticmethod(rotate_list)
+    merge_lists = staticmethod(merge_lists)
