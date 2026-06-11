@@ -152,3 +152,8 @@ def test_benchmark_reverse_list(benchmark) -> None:
     Measures execution time for reversing a 5-element list [1, 2, 3, 4, 5].
     """
     benchmark(DsList.reverse_list, [1, 2, 3, 4, 5])
+
+
+def test_dslist_class_exposes_list_helpers() -> None:
+    assert DsList.rotate_list([1, 2, 3], 1) == [2, 3, 1]
+    assert DsList.merge_lists([1, 2], [3]) == [1, 2, 3]
