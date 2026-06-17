@@ -31,7 +31,8 @@ def test_query_album(name: str, expected: bool) -> None:
         - "Presence": Known album in the database, should return True
         - "Roundabout": Not an album name in the database, should return False
     """
-    assert SqlQuery.query_album(name) == expected
+    sql_query = SqlQuery()
+    assert sql_query.query_album(name) == expected
 
 
 def test_benchmark_query_album(benchmark) -> None:
@@ -40,7 +41,8 @@ def test_benchmark_query_album(benchmark) -> None:
     Measures execution time for querying an album that exists in the
     database ("Presence").
     """
-    benchmark(SqlQuery.query_album, "Presence")
+    sql_query = SqlQuery()
+    benchmark(sql_query.query_album, "Presence")
 
 
 def test_join_albums() -> None:
@@ -55,7 +57,8 @@ def test_join_albums() -> None:
         - Album: "For Those About To Rock We Salute You"
         - Artist: "AC/DC"
     """
-    assert SqlQuery.join_albums()[0] == (
+    sql_query = SqlQuery()
+    assert sql_query.join_albums()[0] == (
         "For Those About To Rock (We Salute You)",
         "For Those About To Rock We Salute You",
         "AC/DC",
@@ -68,7 +71,8 @@ def test_benchmark_join_albums(benchmark) -> None:
     Measures execution time for performing a three-table join operation
     across Album, Artist, and Track tables in the Chinook database.
     """
-    benchmark(SqlQuery.join_albums)
+    sql_query = SqlQuery()
+    benchmark(sql_query.join_albums)
 
 
 def test_top_invoices() -> None:
@@ -83,7 +87,8 @@ def test_top_invoices() -> None:
     Each invoice tuple contains: (InvoiceId, CustomerId, Total)
     where CustomerId is the integer ID of the customer who made the invoice.
     """
-    top = SqlQuery.top_invoices()
+    sql_query = SqlQuery()
+    top = sql_query.top_invoices()
     assert top[0][2] == 25.86
     assert top[2][2] == 21.86
     assert len(top) == 10
@@ -95,4 +100,5 @@ def test_benchmark_top_invoices(benchmark) -> None:
     Measures execution time for querying and sorting the top 10 invoices
     by total amount from the Invoice table.
     """
-    benchmark(SqlQuery.top_invoices)
+    sql_query = SqlQuery()
+    benchmark(sql_query.top_invoices)
