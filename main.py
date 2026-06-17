@@ -1,7 +1,7 @@
 from llm_benchmark.algorithms.primes import Primes
 from llm_benchmark.algorithms.sort import Sort
 from llm_benchmark.control.double import DoubleForLoop
-from llm_benchmark.control.single import SingleForLoop
+from llm_benchmark.control import single
 from llm_benchmark.generator.gen_list import GenList
 from llm_benchmark.sql.query import SqlQuery
 from llm_benchmark.datastructures.dslist import DsList
@@ -13,12 +13,12 @@ def _print_section_header(title):
     print("-" * len(title))
 
 
-def single():
+def single_demo():
     _print_section_header("SingleForLoop")
 
-    print(f"sum_range(10): {SingleForLoop.sum_range(10)}")
-    print(f"max_list([1, 2, 3]): {SingleForLoop.max_list([1, 2, 3])}")
-    print(f"sum_modulus(100, 3): {SingleForLoop.sum_modulus(100, 3)}")
+    print(f"sum_range(10): {single.sum_range(10)}")
+    print(f"max_list([1, 2, 3]): {single.max_list([1, 2, 3])}")
+    print(f"sum_modulus(100, 3): {single.sum_modulus(100, 3)}")
     print()
 
 
@@ -124,7 +124,7 @@ def strops():
 
 
 def main():
-    single()
+    single_demo()
     double()
     sql()
     primes()
