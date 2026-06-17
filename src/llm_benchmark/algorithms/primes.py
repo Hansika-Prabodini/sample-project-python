@@ -87,6 +87,10 @@ class Primes:
         Returns:
             List[int]: List of prime factors
         """
+        # Handle edge cases: numbers <= 1 have no prime factors
+        if n <= 1:
+            return []
+        
         ret = []
         
         # Handle factor 2 separately to optimize for odd factors later
