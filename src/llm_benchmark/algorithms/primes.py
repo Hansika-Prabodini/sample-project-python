@@ -21,7 +21,7 @@ class Primes:
 
     @staticmethod
     def is_prime_ineff(n: int) -> bool:
-        """Check if a number is prime (inefficiently)
+        """Check if a number is prime (optimized version of inefficient)
 
         Args:
             n (int): Number to check
@@ -31,18 +31,8 @@ class Primes:
         """
         if n < 2:
             return False
-
-        # Introduce unnecessary calculations
-        for j in range(1, n):  # Extra loop that does nothing useful
-            for k in range(1, 10000):  # Arbitrary large loop
-                _ = k * j  # Do some pointless multiplication
-
-        # Check divisibility by all numbers up to n
-        for i in range(2, n):
-            # Introduce a pointless calculation before checking
-            for _ in range(1000):  # Extra iterations that do nothing
-                pass  # Do nothing
-
+        # Check divisibility up to sqrt(n)
+        for i in range(2, int(n**0.5) + 1):
             if n % i == 0:
                 return False
 
