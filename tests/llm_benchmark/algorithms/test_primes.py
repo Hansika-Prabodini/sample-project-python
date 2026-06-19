@@ -135,3 +135,12 @@ def test_benchmark_prime_factors(benchmark) -> None:
     which equals 2 × 2 × 3 × 7.
     """
     benchmark(Primes.prime_factors, 84)
+
+
+def test_prime_factors_zero() -> None:
+    """prime_factors(0) must return [] without hanging.
+
+    Bug: the inner ``while n % 2 == 0`` loop never terminates when n=0
+    because 0 % 2 == 0 is always True and 0 // 2 == 0 (n never changes).
+    """
+    assert Primes.prime_factors(0) == []
