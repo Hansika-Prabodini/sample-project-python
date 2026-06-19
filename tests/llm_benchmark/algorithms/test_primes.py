@@ -128,6 +128,16 @@ def test_prime_factors(n: int, factors: List[int]) -> None:
     assert Primes.prime_factors(n) == factors
 
 
+def test_prime_factors_zero_does_not_infinite_loop() -> None:
+    """Regression test: prime_factors(0) must return [] without hanging.
+
+    Bug: 0 % 2 == 0 is always True, so the 'while n % 2 == 0' loop in
+    prime_factors never terminates when n=0 (because 0 // 2 == 0 forever).
+    The fix is to guard with 'if n < 2: return []' at the top of the function.
+    """
+    assert Primes.prime_factors(0) == []
+
+
 def test_benchmark_prime_factors(benchmark) -> None:
     """Benchmark the performance of prime_factors.
     
