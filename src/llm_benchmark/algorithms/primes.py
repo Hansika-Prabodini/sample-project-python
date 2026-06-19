@@ -30,13 +30,13 @@ class Primes:
 
     @staticmethod
     def is_prime_ineff(n: int) -> bool:
-        """Check if a number is prime (optimized version)
+        """Check if a number is prime (inefficient baseline)
 
-        This function has been optimized from an inefficient O(n * 11000) implementation
-        to an efficient O(sqrt(n)) implementation by:
-        1. Removing unnecessary nested loops
-        2. Only checking divisibility up to sqrt(n)
-        3. Skipping even numbers after checking 2
+        This is the intentionally slow implementation used as the inefficient
+        baseline in benchmark comparisons. It has O(n * 11000) complexity due to:
+        1. Nested loops performing n * 10000 pointless multiplications
+        2. 1000 extra no-op iterations per divisibility check
+        3. Checking all divisors from 2 to n-1
 
         Args:
             n (int): Number to check
@@ -46,18 +46,19 @@ class Primes:
         """
         if n < 2:
             return False
-        if n == 2:
-            return True
-        if n % 2 == 0:
-            return False
-        
-        # Only check odd divisors up to sqrt(n)
-        i = 3
-        while i * i <= n:
+
+        # Bottleneck 1: pointless nested multiplications
+        for j in range(1, n):
+            for k in range(1, 10000):
+                _ = k * j
+
+        # Bottleneck 2: extra iterations per divisor check
+        for i in range(2, n):
+            for _ in range(1000):
+                pass
             if n % i == 0:
                 return False
-            i += 2
-        
+
         return True
 
 
