@@ -87,6 +87,9 @@ class Primes:
         Returns:
             List[int]: List of prime factors
         """
+        if n <= 0:
+            return []
+
         ret = []
         
         # Handle factor 2 separately to optimize for odd factors later
