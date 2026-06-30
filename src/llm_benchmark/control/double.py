@@ -60,12 +60,7 @@ class DoubleForLoop:
         Returns:
             int: Number of duplicates between the two arrays
         """
-        count = 0
-        for i in range(len(arr0)):
-            for j in range(len(arr1)):
-                if i == j and arr0[i] == arr1[j]:
-                    count += 1
-        return count
+        return sum(a == b for a, b in zip(arr0, arr1))
 
     @staticmethod
     def sum_matrix(m: List[List[int]]) -> int:
