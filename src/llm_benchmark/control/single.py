@@ -37,4 +37,7 @@ class SingleForLoop:
         Returns:
             int: Sum of modulus of numbers from 0 to n
         """
-        return sum(i for i in range(n) if i % m == 0)
+        if m == 0:
+            raise ZeroDivisionError("integer modulo by zero")
+        count = (n - 1) // m
+        return m * count * (count + 1) // 2
