@@ -12,7 +12,7 @@ class SingleForLoop:
         Returns:
             int: Sum of range of numbers from 0 to n
         """
-        return sum(range(n))
+        return n * (n - 1) // 2
 
     @staticmethod
     def max_list(v: List[int]) -> int:
