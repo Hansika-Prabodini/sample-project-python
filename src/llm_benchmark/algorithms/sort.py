@@ -42,17 +42,7 @@ class Sort:
         Returns:
             List[int]: List of maximum n values
         """
-        tmp = v.copy()
-        ret = [-maxsize - 1] * n
-        # Only iterate up to the number of elements available
-        iterations = min(n, len(tmp))
-        for i in range(iterations):
-            max_val = tmp[0]
-            max_idx = 0
-            for j in range(1, len(tmp)):
-                if tmp[j] > max_val:
-                    max_val = tmp[j]
-                    max_idx = j
-            ret[i] = max_val
-            tmp.pop(max_idx)
+        ret = sorted(v, reverse=True)[:n]
+        if len(ret) < n:
+            ret.extend([-maxsize - 1] * (n - len(ret)))
         return ret
