@@ -39,5 +39,8 @@ class SingleForLoop:
         """
         if m == 0:
             raise ZeroDivisionError("integer modulo by zero")
-        count = (n - 1) // m
-        return m * count * (count + 1) // 2
+        if n <= 0:
+            return 0
+        step = abs(m)
+        count = (n - 1) // step
+        return step * count * (count + 1) // 2
