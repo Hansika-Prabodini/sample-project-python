@@ -14,7 +14,11 @@ class Primes:
         """
         if n < 2:
             return False
-        for i in range(2, n):
+        if n == 2:
+            return True
+        if n % 2 == 0:
+            return False
+        for i in range(3, int(n**0.5) + 1, 2):
             if n % i == 0:
                 return False
         return True
@@ -59,11 +63,14 @@ class Primes:
         Returns:
             int: Sum of primes from 0 to n
         """
-        sum_ = 0
-        for i in range(n):
-            if Primes.is_prime(i):
-                sum_ += i
-        return sum_
+        if n <= 2:
+            return 0
+        sieve = [True] * n
+        sieve[0] = sieve[1] = False
+        for i in range(2, int(n**0.5) + 1):
+            if sieve[i]:
+                sieve[i*i::i] = [False] * ((n - 1 - i*i) // i + 1)
+        return sum(i for i, is_p in enumerate(sieve) if is_p)
 
     @staticmethod
     def prime_factors(n: int) -> List[int]:
@@ -76,10 +83,15 @@ class Primes:
             List[int]: List of prime factors
         """
         ret = []
-        while n > 1:
-            for i in range(2, n + 1):
-                if n % i == 0:
-                    ret.append(i)
-                    n = n // i
-                    break
+        while n % 2 == 0 and n > 1:
+            ret.append(2)
+            n = n // 2
+        i = 3
+        while i * i <= n:
+            while n % i == 0:
+                ret.append(i)
+                n = n // i
+            i += 2
+        if n > 1:
+            ret.append(n)
         return ret
