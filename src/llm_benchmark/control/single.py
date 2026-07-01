@@ -12,10 +12,7 @@ class SingleForLoop:
         Returns:
             int: Sum of range of numbers from 0 to n
         """
-        arr = []
-        for i in range(n):
-            arr.append(i)
-        return sum(arr)
+        return n * (n - 1) // 2
 
     @staticmethod
     def max_list(v: List[int]) -> int:
@@ -44,8 +41,8 @@ class SingleForLoop:
         Returns:
             int: Sum of modulus of numbers from 0 to n
         """
-        arr = []
-        for i in range(n):
-            if i % m == 0:
-                arr.append(i)
-        return sum(arr)
+        if n <= 0:
+            return 0
+        step = abs(m)
+        max_multiple = (n - 1) // step
+        return step * max_multiple * (max_multiple + 1) // 2
