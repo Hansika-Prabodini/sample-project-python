@@ -41,5 +41,8 @@ class SingleForLoop:
         Returns:
             int: Sum of modulus of numbers from 0 to n
         """
-        max_multiple = (n - 1) // m
-        return m * max_multiple * (max_multiple + 1) // 2
+        if n <= 0:
+            return 0
+        step = abs(m)
+        max_multiple = (n - 1) // step
+        return step * max_multiple * (max_multiple + 1) // 2
