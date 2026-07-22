@@ -4,7 +4,9 @@ version = "0.1.0"
 description = "A collection of python functions to benchmark llm projects"
 authors = [{ name = "Matthew", email = "matthew.truscott@turintech.ai" }]
 readme = "README.md"
-requires-python = ">=3.8"
+# the <4.0 bound is required for poetry to resolve taskipy (which caps python <4.0);
+# needed while falcon staging/prod still run the poetry-based commands
+requires-python = ">=3.8,<4.0"
 dependencies = []
 
 [project.scripts]
@@ -14,13 +16,10 @@ main = "main:main"
 dev = [
     "pytest>=7.4.3,<8",
     "pytest-benchmark>=4.0.0,<5",
-    "psutil>=7.2.2,<8",
+    # kept within taskipy's psutil<7 pin so poetry (still used by falcon staging/prod) can resolve
+    "psutil>=5.9,<8",
     "taskipy>=1.14.1,<2",
 ]
-
-# taskipy pins psutil<7; the project needs psutil 7.x, which taskipy is compatible with
-[tool.uv]
-override-dependencies = ["psutil>=7.2.2,<8"]
 
 [tool.taskipy.tasks.test]
 help = "Run unit tests (benchmarks skipped)"
