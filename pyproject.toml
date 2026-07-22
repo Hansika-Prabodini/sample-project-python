@@ -4,8 +4,6 @@ version = "0.1.0"
 description = "A collection of python functions to benchmark llm projects"
 authors = [{ name = "Matthew", email = "matthew.truscott@turintech.ai" }]
 readme = "README.md"
-# the <4.0 bound is required for poetry to resolve taskipy (which caps python <4.0);
-# needed while falcon staging/prod still run the poetry-based commands
 requires-python = ">=3.8,<4.0"
 dependencies = []
 
@@ -16,7 +14,6 @@ main = "main:main"
 dev = [
     "pytest>=7.4.3,<8",
     "pytest-benchmark>=4.0.0,<5",
-    # kept within taskipy's psutil<7 pin so poetry (still used by falcon staging/prod) can resolve
     "psutil>=5.9,<8",
     "taskipy>=1.14.1,<2",
 ]
