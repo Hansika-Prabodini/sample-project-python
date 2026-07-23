@@ -5,23 +5,23 @@
 Build:
 
 ```shell
-poetry install
+uv sync
 ```
 
 Run Main:
 
 ```shell
-poetry run main
+uv run main
 ```
 
 Run Unit Tests:
 
 ```shell
-poetry run pytest --benchmark-skip tests/
+uv run task test
 ```
 
-Run Benchmarking:
+Run Benchmarking (3 runs, metrics written to `artemis_results.csv`):
 
 ```shell
-poetry run pytest --benchmark-only tests/
+uv run task benchmark
 ```
