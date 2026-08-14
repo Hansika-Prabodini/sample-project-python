@@ -7,6 +7,8 @@ from llm_benchmark.sql.query import SqlQuery
     "name, expected",
     [
         ("Presence", True),
+        ("For Those About To Rock We Salute You", True),
+        ("It's a Missing Album", False),
         ("Roundabout", False),
     ],
 )
