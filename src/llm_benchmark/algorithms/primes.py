@@ -14,9 +14,15 @@ class Primes:
         """
         if n < 2:
             return False
-        for i in range(2, n):
-            if n % i == 0:
+        if n == 2:
+            return True
+        if n % 2 == 0:
+            return False
+        divisor = 3
+        while divisor * divisor <= n:
+            if n % divisor == 0:
                 return False
+            divisor += 2
         return True
 
     @staticmethod
