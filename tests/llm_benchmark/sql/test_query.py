@@ -7,7 +7,10 @@ from llm_benchmark.sql.query import SqlQuery
     "name, expected",
     [
         ("Presence", True),
+        ("For Those About To Rock We Salute You", True),
+        ("Frank's Wild Years", True),
         ("Roundabout", False),
+        ("' OR 1=1 --", False),
     ],
 )
 def test_query_album(name: str, expected: bool) -> None:
