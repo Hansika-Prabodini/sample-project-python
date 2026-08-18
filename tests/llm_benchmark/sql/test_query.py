@@ -8,6 +8,9 @@ from llm_benchmark.sql.query import SqlQuery
     [
         ("Presence", True),
         ("Roundabout", False),
+        ("' OR 1=1 --", False),
+        ("Frank's Wild Years", True),
+        ("Missing Album's Title", False),
     ],
 )
 def test_query_album(name: str, expected: bool) -> None:
