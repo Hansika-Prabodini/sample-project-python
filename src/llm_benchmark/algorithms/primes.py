@@ -65,11 +65,17 @@ class Primes:
         Returns:
             int: Sum of primes from 0 to n
         """
-        sum_ = 0
-        for i in range(n):
-            if Primes.is_prime(i):
-                sum_ += i
-        return sum_
+        if n <= 2:
+            return 0
+
+        sieve = bytearray(b"\x01") * n
+        sieve[0:2] = b"\x00\x00"
+        limit = int((n - 1) ** 0.5)
+        for prime in range(2, limit + 1):
+            if sieve[prime]:
+                start = prime * prime
+                sieve[start:n:prime] = b"\x00" * (((n - 1 - start) // prime) + 1)
+        return sum(index for index, is_prime in enumerate(sieve) if is_prime)
 
     @staticmethod
     def prime_factors(n: int) -> List[int]:
