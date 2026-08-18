@@ -13,12 +13,7 @@ class DoubleForLoop:
         Returns:
             int: Sum of squares of numbers from 0 to n
         """
-        sum_ = 0
-        for i in range(n):
-            for j in range(n):
-                if i == j:
-                    sum_ += i * j
-        return sum_
+        return n * (n - 1) * (2 * n - 1) // 6
 
     @staticmethod
     def sum_triangle(n: int) -> int:
