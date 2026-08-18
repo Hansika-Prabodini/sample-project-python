@@ -14,9 +14,15 @@ class Primes:
         """
         if n < 2:
             return False
-        for i in range(2, n):
-            if n % i == 0:
+        if n == 2:
+            return True
+        if n % 2 == 0:
+            return False
+        divisor = 3
+        while divisor * divisor <= n:
+            if n % divisor == 0:
                 return False
+            divisor += 2
         return True
 
     @staticmethod
@@ -59,11 +65,17 @@ class Primes:
         Returns:
             int: Sum of primes from 0 to n
         """
-        sum_ = 0
-        for i in range(n):
-            if Primes.is_prime(i):
-                sum_ += i
-        return sum_
+        if n <= 2:
+            return 0
+
+        sieve = bytearray(b"\x01") * n
+        sieve[0:2] = b"\x00\x00"
+        limit = int((n - 1) ** 0.5)
+        for prime in range(2, limit + 1):
+            if sieve[prime]:
+                start = prime * prime
+                sieve[start:n:prime] = b"\x00" * (((n - 1 - start) // prime) + 1)
+        return sum(index for index, is_prime in enumerate(sieve) if is_prime)
 
     @staticmethod
     def prime_factors(n: int) -> List[int]:
@@ -76,10 +88,17 @@ class Primes:
             List[int]: List of prime factors
         """
         ret = []
-        while n > 1:
-            for i in range(2, n + 1):
-                if n % i == 0:
-                    ret.append(i)
-                    n = n // i
-                    break
+        while n % 2 == 0 and n > 1:
+            ret.append(2)
+            n //= 2
+
+        divisor = 3
+        while divisor * divisor <= n:
+            while n % divisor == 0:
+                ret.append(divisor)
+                n //= divisor
+            divisor += 2
+
+        if n > 1:
+            ret.append(n)
         return ret
