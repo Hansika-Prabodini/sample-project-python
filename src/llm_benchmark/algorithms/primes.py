@@ -88,10 +88,17 @@ class Primes:
             List[int]: List of prime factors
         """
         ret = []
-        while n > 1:
-            for i in range(2, n + 1):
-                if n % i == 0:
-                    ret.append(i)
-                    n = n // i
-                    break
+        while n % 2 == 0 and n > 1:
+            ret.append(2)
+            n //= 2
+
+        divisor = 3
+        while divisor * divisor <= n:
+            while n % divisor == 0:
+                ret.append(divisor)
+                n //= divisor
+            divisor += 2
+
+        if n > 1:
+            ret.append(n)
         return ret
