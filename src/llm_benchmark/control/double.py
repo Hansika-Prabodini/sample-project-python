@@ -64,8 +64,4 @@ class DoubleForLoop:
         Returns:
             int: Sum of matrix of integers
         """
-        sum_ = 0
-        for i in range(len(m)):
-            for j in range(len(m[i])):
-                sum_ += m[i][j]
-        return sum_
+        return sum(map(sum, m))
