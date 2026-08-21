@@ -8,10 +8,16 @@ from llm_benchmark.sql.query import SqlQuery
     [
         ("Presence", True),
         ("Roundabout", False),
+        ("It's a Fake", False),
     ],
 )
 def test_query_album(name: str, expected: bool) -> None:
     assert SqlQuery.query_album(name) == expected
+
+
+def test_query_album_treats_injection_as_literal_title() -> None:
+    assert SqlQuery.query_album("Presence'; DROP TABLE Album; --") is False
+    assert SqlQuery.query_album("Presence") is True
 
 
 def test_benchmark_query_album(benchmark) -> None:
