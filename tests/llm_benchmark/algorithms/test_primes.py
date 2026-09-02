@@ -22,6 +22,25 @@ def test_is_prime(n: int, is_prime: bool) -> None:
     assert Primes.is_prime(n) == is_prime
 
 
+@pytest.mark.parametrize(
+    "n, is_prime",
+    [
+        (-10, False),
+        (-1, False),
+        (0, False),
+        (1, False),
+        (2, True),
+        (3, True),
+        (4, False),
+        (10, False),
+        (17, True),
+        (26, False),
+    ],
+)
+def test_is_prime_ineff(n: int, is_prime: bool) -> None:
+    assert Primes.is_prime_ineff(n) == is_prime
+
+
 def test_benchmark_is_prime(benchmark) -> None:
     benchmark(Primes.is_prime, 17)
 
