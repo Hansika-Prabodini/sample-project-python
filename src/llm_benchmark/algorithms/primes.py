@@ -1,3 +1,4 @@
+from math import isqrt
 from typing import List
 
 
