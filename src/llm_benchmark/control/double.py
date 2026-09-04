@@ -26,11 +26,9 @@ class DoubleForLoop:
         Returns:
             int: Sum of triangle of numbers from 0 to n
         """
-        sum_ = 0
-        for i in range(n):
-            for j in range(i + 1):
-                sum_ += j
-        return sum_
+        if n <= 0:
+            return 0
+        return n * (n - 1) * (n + 1) // 6
 
     @staticmethod
     def count_pairs(arr: List[int]) -> int:
