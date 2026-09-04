@@ -42,16 +42,10 @@ class DoubleForLoop:
         Returns:
             int: Number of pairs in the array
         """
-        count = 0
-        for i in range(len(arr)):
-            ndup = 0
-            for j in range(len(arr)):
-                if arr[i] == arr[j]:
-                    ndup += 1
-            if ndup == 2:
-                count += 1
-
-        return count // 2
+        frequencies = {}
+        for value in arr:
+            frequencies[value] = frequencies.get(value, 0) + 1
+        return sum(count == 2 for count in frequencies.values())
 
     @staticmethod
     def count_duplicates(arr0: List[int], arr1: List[int]) -> int:
