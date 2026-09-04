@@ -39,8 +39,7 @@ class SingleForLoop:
         Returns:
             int: Sum of modulus of numbers from 0 to n
         """
-        arr = []
-        for i in range(n):
-            if i % m == 0:
-                arr.append(i)
-        return sum(arr)
+        if n <= 0:
+            return 0
+        multiples = (n - 1) // abs(m)
+        return abs(m) * multiples * (multiples + 1) // 2
