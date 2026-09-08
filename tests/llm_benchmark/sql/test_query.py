@@ -22,8 +22,15 @@ def test_benchmark_query_album(benchmark) -> None:
     benchmark(SqlQuery.query_album, "Presence")
 
 
-def test_join_albums() -> None:
-    assert SqlQuery.join_albums()[0] == (
+def test_join_albums_returns_track_with_its_album_and_artist() -> None:
+    joined_albums = SqlQuery.join_albums()
+
+    first_track_name, first_album_title, first_artist_name = joined_albums[0]
+    assert (
+        first_track_name,
+        first_album_title,
+        first_artist_name,
+    ) == (
         "For Those About To Rock (We Salute You)",
         "For Those About To Rock We Salute You",
         "AC/DC",
