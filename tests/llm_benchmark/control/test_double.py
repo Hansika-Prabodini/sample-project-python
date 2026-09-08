@@ -84,15 +84,21 @@ def test_benchmark_count_duplicates(benchmark) -> None:
 
 
 @pytest.mark.parametrize(
-    "matrix, S",
+    "matrix, expected_sum",
     [
-        ([[0]], 0),
-        ([[0, 1], [2, 3]], 6),
-        ([[0, 1, 2], [3, 4, 5], [6, 7, 8]], 36),
+        pytest.param([[0]], 0, id="single-zero"),
+        pytest.param([[0, 1], [2, 3]], 6, id="two-by-two"),
+        pytest.param(
+            [[0, 1, 2], [3, 4, 5], [6, 7, 8]], 36, id="three-by-three"
+        ),
     ],
 )
-def test_sum_matrix(matrix: List[List[int]], S: int) -> None:
-    assert DoubleForLoop.sum_matrix(matrix) == S
+def test_sum_matrix_adds_every_cell(
+    matrix: List[List[int]], expected_sum: int
+) -> None:
+    actual_sum = DoubleForLoop.sum_matrix(matrix)
+
+    assert actual_sum == expected_sum
 
 
 def test_benchmark_sum_matrix(benchmark) -> None:
