@@ -5,9 +5,17 @@ import pytest
 from llm_benchmark.control.single import SingleForLoop
 
 
-@pytest.mark.parametrize("n, S", [(0, 0), (1, 0), (2, 1), (3, 3), (4, 6), (10, 45)])
-def test_sum_range(n: int, S: int) -> None:
-    assert SingleForLoop.sum_range(n) == S
+@pytest.mark.parametrize(
+    "exclusive_upper_bound, expected_sum",
+    [(0, 0), (1, 0), (2, 1), (3, 3), (4, 6), (10, 45)],
+    ids=["empty-range", "only-zero", "below-two", "below-three", "below-four", "below-ten"],
+)
+def test_sum_range_adds_integers_below_exclusive_upper_bound(
+    exclusive_upper_bound: int, expected_sum: int
+) -> None:
+    actual_sum = SingleForLoop.sum_range(exclusive_upper_bound)
+
+    assert actual_sum == expected_sum
 
 
 def test_benchmark_sum_range(benchmark) -> None:
