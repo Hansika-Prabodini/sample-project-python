@@ -22,9 +22,17 @@ def test_benchmark_sum_square(benchmark) -> None:
     benchmark(DoubleForLoop.sum_square, 100)
 
 
-@pytest.mark.parametrize("n, S", [(1, 0), (2, 1), (3, 4), (10, 165)])
-def test_sum_triangle(n: int, S: int) -> None:
-    assert DoubleForLoop.sum_triangle(n) == S
+@pytest.mark.parametrize(
+    "exclusive_upper_bound, expected_sum",
+    [(1, 0), (2, 1), (3, 4), (10, 165)],
+    ids=["first-row", "two-rows", "three-rows", "ten-rows"],
+)
+def test_sum_triangle_adds_each_inclusive_row_below_upper_bound(
+    exclusive_upper_bound: int, expected_sum: int
+) -> None:
+    actual_sum = DoubleForLoop.sum_triangle(exclusive_upper_bound)
+
+    assert actual_sum == expected_sum
 
 
 def test_benchmark_sum_triangle(benchmark) -> None:
