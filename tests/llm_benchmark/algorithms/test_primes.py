@@ -71,20 +71,24 @@ def test_benchmark_sum_primes(benchmark) -> None:
 
 
 @pytest.mark.parametrize(
-    "n, factors",
+    "number, expected_factors",
     [
-        (0, []),
-        (1, []),
-        (2, [2]),
-        (3, [3]),
-        (4, [2, 2]),
-        (10, [2, 5]),
-        (17, [17]),
-        (84, [2, 2, 3, 7]),
+        pytest.param(0, [], id="zero-has-no-factors"),
+        pytest.param(1, [], id="one-has-no-factors"),
+        pytest.param(2, [2], id="smallest-prime"),
+        pytest.param(3, [3], id="odd-prime"),
+        pytest.param(4, [2, 2], id="repeated-factor"),
+        pytest.param(10, [2, 5], id="two-distinct-factors"),
+        pytest.param(17, [17], id="larger-prime"),
+        pytest.param(84, [2, 2, 3, 7], id="multiple-prime-factors"),
     ],
 )
-def test_prime_factors(n: int, factors: List[int]) -> None:
-    assert Primes.prime_factors(n) == factors
+def test_prime_factors_returns_factors_in_ascending_order(
+    number: int, expected_factors: List[int]
+) -> None:
+    actual_factors = Primes.prime_factors(number)
+
+    assert actual_factors == expected_factors
 
 
 def test_benchmark_prime_factors(benchmark) -> None:
