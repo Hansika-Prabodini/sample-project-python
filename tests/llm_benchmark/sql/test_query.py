@@ -4,14 +4,18 @@ from llm_benchmark.sql.query import SqlQuery
 
 
 @pytest.mark.parametrize(
-    "name, expected",
+    "album_title, expected_to_exist",
     [
-        ("Presence", True),
-        ("Roundabout", False),
+        pytest.param("Presence", True, id="album-exists"),
+        pytest.param("Roundabout", False, id="album-does-not-exist"),
     ],
 )
-def test_query_album(name: str, expected: bool) -> None:
-    assert SqlQuery.query_album(name) == expected
+def test_query_album_reports_whether_title_exists(
+    album_title: str, expected_to_exist: bool
+) -> None:
+    album_exists = SqlQuery.query_album(album_title)
+
+    assert album_exists is expected_to_exist
 
 
 def test_benchmark_query_album(benchmark) -> None:
