@@ -41,11 +41,19 @@ def test_benchmark_join_albums(benchmark) -> None:
     benchmark(SqlQuery.join_albums)
 
 
-def test_top_invoices() -> None:
-    top = SqlQuery.top_invoices()
-    assert top[0][2] == 25.86
-    assert top[2][2] == 21.86
-    assert len(top) == 10
+def test_top_invoices_returns_ten_highest_totals_in_descending_order() -> None:
+    top_invoices = SqlQuery.top_invoices()
+
+    invoice_totals = [total for _, _, total in top_invoices]
+    assert len(top_invoices) == 10
+    assert invoice_totals == sorted(invoice_totals, reverse=True)
+
+    highest_invoice_id, highest_customer_name, highest_total = top_invoices[0]
+    assert (highest_invoice_id, highest_customer_name, highest_total) == (
+        404,
+        "Helena Holý",
+        25.86,
+    )
 
 
 def test_benchmark_top_invoices(benchmark) -> None:
