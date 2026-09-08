@@ -23,11 +23,20 @@ def test_benchmark_sum_range(benchmark) -> None:
 
 
 @pytest.mark.parametrize(
-    "v, M",
-    [([0], 0), ([1, 2, 3, 4, 5], 5), ([1, 1, 1, 1, 0], 1), ([-1, -1, -1, -1, 0], 0)],
+    "values, expected_maximum",
+    [
+        pytest.param([0], 0, id="single-value"),
+        pytest.param([1, 2, 3, 4, 5], 5, id="ascending-values"),
+        pytest.param([1, 1, 1, 1, 0], 1, id="repeated-maximum"),
+        pytest.param([-1, -1, -1, -1, 0], 0, id="zero-after-negatives"),
+    ],
 )
-def test_max_list(v: List[int], M: int) -> None:
-    assert SingleForLoop.max_list(v) == M
+def test_max_list_returns_largest_value(
+    values: List[int], expected_maximum: int
+) -> None:
+    actual_maximum = SingleForLoop.max_list(values)
+
+    assert actual_maximum == expected_maximum
 
 
 def test_benchmark_max_list(benchmark) -> None:
