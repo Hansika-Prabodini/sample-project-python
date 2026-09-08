@@ -5,9 +5,17 @@ import pytest
 from llm_benchmark.control.double import DoubleForLoop
 
 
-@pytest.mark.parametrize("n, S", [(1, 0), (2, 1), (3, 5), (10, 285)])
-def test_sum_square(n: int, S: int) -> None:
-    assert DoubleForLoop.sum_square(n) == S
+@pytest.mark.parametrize(
+    "exclusive_upper_bound, expected_sum",
+    [(1, 0), (2, 1), (3, 5), (10, 285)],
+    ids=["zero-only", "includes-one", "includes-two", "below-ten"],
+)
+def test_sum_square_adds_squares_below_exclusive_upper_bound(
+    exclusive_upper_bound: int, expected_sum: int
+) -> None:
+    actual_sum = DoubleForLoop.sum_square(exclusive_upper_bound)
+
+    assert actual_sum == expected_sum
 
 
 def test_benchmark_sum_square(benchmark) -> None:
