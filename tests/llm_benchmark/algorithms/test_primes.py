@@ -54,10 +54,16 @@ def test_benchmark_is_prime(benchmark) -> None:
 
 
 @pytest.mark.parametrize(
-    "n, S", [(0, 0), (1, 0), (2, 0), (3, 2), (4, 5), (10, 17), (100, 1060)]
+    "exclusive_upper_bound, expected_sum",
+    [(0, 0), (1, 0), (2, 0), (3, 2), (4, 5), (10, 17), (100, 1060)],
+    ids=["empty-range", "below-primes", "excludes-two", "includes-two", "two-primes", "below-ten", "below-one-hundred"],
 )
-def test_sum_primes(n: int, S: int) -> None:
-    assert Primes.sum_primes(n) == S
+def test_sum_primes_adds_primes_below_exclusive_upper_bound(
+    exclusive_upper_bound: int, expected_sum: int
+) -> None:
+    actual_sum = Primes.sum_primes(exclusive_upper_bound)
+
+    assert actual_sum == expected_sum
 
 
 def test_benchmark_sum_primes(benchmark) -> None:
