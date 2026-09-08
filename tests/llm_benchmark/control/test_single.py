@@ -44,20 +44,24 @@ def test_benchmark_max_list(benchmark) -> None:
 
 
 @pytest.mark.parametrize(
-    "n, m, S",
+    "exclusive_upper_bound, divisor, expected_sum",
     [
-        (0, 2, 0),
-        (1, 2, 0),
-        (2, 2, 0),
-        (3, 2, 2),
-        (4, 2, 2),
-        (10, 2, 20),
-        (10, 3, 18),
-        (10, 4, 12),
+        pytest.param(0, 2, 0, id="empty-range"),
+        pytest.param(1, 2, 0, id="zero-only"),
+        pytest.param(2, 2, 0, id="excludes-first-multiple"),
+        pytest.param(3, 2, 2, id="includes-first-multiple"),
+        pytest.param(4, 2, 2, id="excludes-upper-bound"),
+        pytest.param(10, 2, 20, id="multiples-of-two"),
+        pytest.param(10, 3, 18, id="multiples-of-three"),
+        pytest.param(10, 4, 12, id="multiples-of-four"),
     ],
 )
-def test_sum_modulus(n: int, m: int, S: int) -> None:
-    assert SingleForLoop.sum_modulus(n, m) == S
+def test_sum_modulus_adds_divisible_values_below_upper_bound(
+    exclusive_upper_bound: int, divisor: int, expected_sum: int
+) -> None:
+    actual_sum = SingleForLoop.sum_modulus(exclusive_upper_bound, divisor)
+
+    assert actual_sum == expected_sum
 
 
 def test_benchmark_sum_modulus(benchmark) -> None:
