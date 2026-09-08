@@ -62,17 +62,21 @@ def test_benchmark_count_pairs(benchmark) -> None:
 
 
 @pytest.mark.parametrize(
-    "arr0, arr1, count",
+    "left_values, right_values, expected_match_count",
     [
-        ([0], [0], 1),
-        ([1, 2, 3], [2, 3, 1], 0),
-        ([1, 1, 1], [1, 2, 3], 1),
-        ([1, 1, 2], [1, 2, 2], 2),
-        ([1, 1, 2, 2], [1, 1, 2, 2], 4),
+        pytest.param([0], [0], 1, id="single-position-match"),
+        pytest.param([1, 2, 3], [2, 3, 1], 0, id="same-values-different-positions"),
+        pytest.param([1, 1, 1], [1, 2, 3], 1, id="first-position-only"),
+        pytest.param([1, 1, 2], [1, 2, 2], 2, id="first-and-last-positions"),
+        pytest.param([1, 1, 2, 2], [1, 1, 2, 2], 4, id="all-positions-match"),
     ],
 )
-def test_count_duplicates(arr0: List[int], arr1: List[int], count: int) -> None:
-    assert DoubleForLoop.count_duplicates(arr0, arr1) == count
+def test_count_duplicates_counts_equal_values_at_matching_indices(
+    left_values: List[int], right_values: List[int], expected_match_count: int
+) -> None:
+    actual_match_count = DoubleForLoop.count_duplicates(left_values, right_values)
+
+    assert actual_match_count == expected_match_count
 
 
 def test_benchmark_count_duplicates(benchmark) -> None:
