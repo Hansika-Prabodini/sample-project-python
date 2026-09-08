@@ -40,17 +40,21 @@ def test_benchmark_sum_triangle(benchmark) -> None:
 
 
 @pytest.mark.parametrize(
-    "arr, count",
+    "values, expected_pair_count",
     [
-        ([0], 0),
-        ([1, 2, 3], 0),
-        ([1, 1, 1], 0),
-        ([1, 1, 2], 1),
-        ([1, 1, 2, 2], 2),
+        pytest.param([0], 0, id="single-value"),
+        pytest.param([1, 2, 3], 0, id="all-distinct"),
+        pytest.param([1, 1, 1], 0, id="three-equal-values-do-not-pair"),
+        pytest.param([1, 1, 2], 1, id="one-value-occurs-exactly-twice"),
+        pytest.param([1, 1, 2, 2], 2, id="two-values-occur-exactly-twice"),
     ],
 )
-def test_count_pairs(arr: List[int], count: int) -> None:
-    assert DoubleForLoop.count_pairs(arr) == count
+def test_count_pairs_counts_values_occurring_exactly_twice(
+    values: List[int], expected_pair_count: int
+) -> None:
+    actual_pair_count = DoubleForLoop.count_pairs(values)
+
+    assert actual_pair_count == expected_pair_count
 
 
 def test_benchmark_count_pairs(benchmark) -> None:
