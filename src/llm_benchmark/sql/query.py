@@ -17,8 +17,8 @@ class SqlQuery:
         try:
             cur = conn.cursor()
 
-            cur.execute(f"SELECT * FROM Album WHERE Title = '{name}'")
-            return len(cur.fetchall()) > 0
+            cur.execute("SELECT 1 FROM Album WHERE Title = ? LIMIT 1", (name,))
+            return cur.fetchone() is not None
         finally:
             conn.close()
 
