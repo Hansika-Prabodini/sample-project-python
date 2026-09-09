@@ -17,7 +17,7 @@ class SqlQuery:
         try:
             cur = conn.cursor()
 
-            cur.execute(f"SELECT * FROM Album WHERE Title = '{name}'")
+            cur.execute("SELECT * FROM Album WHERE Title = ?", (name,))
             return len(cur.fetchall()) > 0
         finally:
             conn.close()
@@ -79,9 +79,10 @@ class SqlQuery:
                         Invoice i
                     JOIN Customer c ON c.CustomerId = i.CustomerId
                     ORDER BY i.Total DESC
+                    LIMIT 10
                     """
                 )
             )
-            return cur.fetchall()[:10]
+            return cur.fetchall()
         finally:
             conn.close()
