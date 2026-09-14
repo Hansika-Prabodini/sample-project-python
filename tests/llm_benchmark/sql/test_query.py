@@ -8,10 +8,16 @@ from llm_benchmark.sql.query import SqlQuery
     [
         ("Presence", True),
         ("Roundabout", False),
+        ("' OR 1=1 --", False),
+        ("Presence'; DROP TABLE Album; --", False),
+        ("This Album Doesn't Exist", False),
     ],
 )
 def test_query_album(name: str, expected: bool) -> None:
-    assert SqlQuery.query_album(name) == expected
+    result = SqlQuery.query_album(name)
+
+    assert isinstance(result, bool)
+    assert result is expected
 
 
 def test_benchmark_query_album(benchmark) -> None:
