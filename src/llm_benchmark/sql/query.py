@@ -72,6 +72,7 @@ class SqlQuery:
                         Invoice i
                     JOIN Customer c ON c.CustomerId = i.CustomerId
                     ORDER BY i.Total DESC
+                    LIMIT 10
                     """
                 )
             )
