@@ -6,39 +6,32 @@ from llm_benchmark.algorithms.primes import Primes
 
 
 @pytest.mark.parametrize(
-    "n, is_prime",
+    "method, n, is_prime",
     [
-        (0, False),
-        (1, False),
-        (2, True),
-        (3, True),
-        (4, False),
-        (10, False),
-        (17, True),
-        (26, False),
+        (Primes.is_prime, -10, False),
+        (Primes.is_prime, -1, False),
+        (Primes.is_prime, 0, False),
+        (Primes.is_prime, 1, False),
+        (Primes.is_prime, 2, True),
+        (Primes.is_prime, 4, False),
+        (Primes.is_prime, 17, True),
+        (Primes.is_prime, 100, False),
+        (Primes.is_prime, 997, True),
+        (Primes.is_prime, 1000, False),
+        (Primes.is_prime_ineff, -10, False),
+        (Primes.is_prime_ineff, -1, False),
+        (Primes.is_prime_ineff, 0, False),
+        (Primes.is_prime_ineff, 1, False),
+        (Primes.is_prime_ineff, 2, True),
+        (Primes.is_prime_ineff, 4, False),
+        (Primes.is_prime_ineff, 17, True),
+        (Primes.is_prime_ineff, 100, False),
+        (Primes.is_prime_ineff, 997, True),
+        (Primes.is_prime_ineff, 1000, False),
     ],
 )
-def test_is_prime(n: int, is_prime: bool) -> None:
-    assert Primes.is_prime(n) == is_prime
-
-
-@pytest.mark.parametrize(
-    "n, is_prime",
-    [
-        (-10, False),
-        (-1, False),
-        (0, False),
-        (1, False),
-        (2, True),
-        (3, True),
-        (4, False),
-        (10, False),
-        (17, True),
-        (26, False),
-    ],
-)
-def test_is_prime_ineff(n: int, is_prime: bool) -> None:
-    assert Primes.is_prime_ineff(n) == is_prime
+def test_is_prime(method, n: int, is_prime: bool) -> None:
+    assert method(n) == is_prime
 
 
 def test_benchmark_is_prime(benchmark) -> None:
