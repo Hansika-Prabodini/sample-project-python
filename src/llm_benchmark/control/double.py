@@ -12,12 +12,9 @@ class DoubleForLoop:
         Returns:
             int: Sum of squares of numbers from 0 to n
         """
-        sum_ = 0
-        for i in range(n):
-            for j in range(n):
-                if i == j:
-                    sum_ += i * j
-        return sum_
+        if n <= 0:
+            return 0
+        return n * (n - 1) * (2 * n - 1) // 6
 
     @staticmethod
     def sum_triangle(n: int) -> int:
@@ -29,11 +26,9 @@ class DoubleForLoop:
         Returns:
             int: Sum of triangle of numbers from 0 to n
         """
-        sum_ = 0
-        for i in range(n):
-            for j in range(i + 1):
-                sum_ += j
-        return sum_
+        if n <= 0:
+            return 0
+        return n * (n - 1) * (n + 1) // 6
 
     @staticmethod
     def count_pairs(arr: List[int]) -> int:
@@ -47,16 +42,10 @@ class DoubleForLoop:
         Returns:
             int: Number of pairs in the array
         """
-        count = 0
-        for i in range(len(arr)):
-            ndup = 0
-            for j in range(len(arr)):
-                if arr[i] == arr[j]:
-                    ndup += 1
-            if ndup == 2:
-                count += 1
-
-        return count // 2
+        frequencies = {}
+        for value in arr:
+            frequencies[value] = frequencies.get(value, 0) + 1
+        return sum(count == 2 for count in frequencies.values())
 
     @staticmethod
     def count_duplicates(arr0: List[int], arr1: List[int]) -> int:
@@ -69,12 +58,7 @@ class DoubleForLoop:
         Returns:
             int: Number of duplicates between the two arrays
         """
-        count = 0
-        for i in range(len(arr0)):
-            for j in range(len(arr1)):
-                if i == j and arr0[i] == arr1[j]:
-                    count += 1
-        return count
+        return sum(left == right for left, right in zip(arr0, arr1))
 
     @staticmethod
     def sum_matrix(m: List[List[int]]) -> int:
@@ -86,8 +70,4 @@ class DoubleForLoop:
         Returns:
             int: Sum of matrix of integers
         """
-        sum_ = 0
-        for i in range(len(m)):
-            for j in range(len(m[i])):
-                sum_ += m[i][j]
-        return sum_
+        return sum(map(sum, m))
