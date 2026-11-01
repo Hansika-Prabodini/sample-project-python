@@ -6,5 +6,15 @@ source "$DIR/variables.sh"
 
 # Populate CLEAN with the clean command
 CLEAN=""
-echo "Running clean command: $CLEAN"
-eval $CLEAN
+
+if [[ -z "${CLEAN:-}" ]]; then
+  echo "No clean command specified; skipping."
+  exit 0
+fi
+
+# Split CLEAN into an array to avoid eval and prevent injection
+read -r -a CLEAN_ARR <<< "$CLEAN"
+printf 'Running clean command: '
+printf '%q ' "${CLEAN_ARR[@]}"
+printf '\n'
+"${CLEAN_ARR[@]}"
