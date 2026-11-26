@@ -26,11 +26,7 @@ class DsList:
         Returns:
             List[int]: List of indices where the value is found
         """
-        ret = []
-        for i in range(len(v)):
-            if v[i] == n:
-                ret.append(i)
-        return ret
+        return [i for i, x in enumerate(v) if x == n]
 
     @staticmethod
     def sort_list(v: List[int]) -> List[int]:
