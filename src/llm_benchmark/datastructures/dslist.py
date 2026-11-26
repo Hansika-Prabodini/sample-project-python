@@ -50,10 +50,7 @@ class DsList:
         Returns:
             List[int]: Reversed list of integers
         """
-        ret = []
-        for i in range(len(v)):
-            ret.append(v[len(v) - 1 - i])
-        return ret
+        return v[::-1]
 
     @staticmethod
     def rotate_list(v: List[int], n: int) -> List[int]:
