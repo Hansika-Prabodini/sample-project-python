@@ -42,6 +42,9 @@ class Sort:
         Returns:
             List[int]: List of maximum n values
         """
+        if type(n) is int and 0 <= n <= len(v):
+            return sorted(v, reverse=True)[:n]
+        # Fallback keeps the original behaviour (e.g. IndexError when n > len(v))
         tmp = v.copy()
         ret = [-maxsize - 1] * n
         for i in range(n):
