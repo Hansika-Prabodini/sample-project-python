@@ -84,9 +84,4 @@ class DsList:
         Returns:
             List[int]: Merged list of integers
         """
-        ret = []
-        for i in range(len(v1)):
-            ret.append(v1[i])
-        for i in range(len(v2)):
-            ret.append(v2[i])
-        return ret
+        return list(v1) + list(v2)
