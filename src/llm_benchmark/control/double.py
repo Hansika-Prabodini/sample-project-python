@@ -12,12 +12,10 @@ class DoubleForLoop:
         Returns:
             int: Sum of squares of numbers from 0 to n
         """
-        sum_ = 0
-        for i in range(n):
-            for j in range(n):
-                if i == j:
-                    sum_ += i * j
-        return sum_
+        n = index(n)  # same TypeError as range() for non-integers
+        if n <= 0:
+            return 0
+        return (n - 1) * n * (2 * n - 1) // 6
 
     @staticmethod
     def sum_triangle(n: int) -> int:
