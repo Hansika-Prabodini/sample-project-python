@@ -63,6 +63,9 @@ class DsList:
         Returns:
             List[int]: Rotated list of integers
         """
+        if type(n) is int and 0 <= n <= len(v):
+            return v[n:] + v[:n]
+        # Fallback keeps the original behaviour for out-of-range n
         ret = []
         for i in range(n, len(v)):
             ret.append(v[i])
