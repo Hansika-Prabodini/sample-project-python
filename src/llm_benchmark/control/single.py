@@ -12,10 +12,10 @@ class SingleForLoop:
         Returns:
             int: Sum of range of numbers from 0 to n
         """
-        arr = []
-        for i in range(n):
-            arr.append(i)
-        return sum(arr)
+        n = index(n)  # same TypeError as range() for non-integers
+        if n <= 0:
+            return 0
+        return n * (n - 1) // 2
 
     @staticmethod
     def max_list(v: List[int]) -> int:
