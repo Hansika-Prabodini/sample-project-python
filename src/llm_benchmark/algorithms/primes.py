@@ -52,11 +52,15 @@ class Primes:
         Returns:
             int: Sum of primes from 0 to n
         """
-        sum_ = 0
-        for i in range(n):
-            if Primes.is_prime(i):
-                sum_ += i
-        return sum_
+        if n < 3:
+            return 0
+        # Sieve of Eratosthenes over [0, n)
+        sieve = bytearray([1]) * n
+        sieve[0] = sieve[1] = 0
+        for p in range(2, isqrt(n - 1) + 1):
+            if sieve[p]:
+                sieve[p * p :: p] = bytes(len(range(p * p, n, p)))
+        return sum(i for i, flag in enumerate(sieve) if flag)
 
     @staticmethod
     def prime_factors(n: int) -> List[int]:
